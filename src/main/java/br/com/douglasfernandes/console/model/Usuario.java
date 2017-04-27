@@ -1,11 +1,11 @@
 package br.com.douglasfernandes.console.model;
 
 /**
- * Classe wrapper de perfil logavel.(Administrador do sistema)
+ * Representa o usuário que irá acessar o client side.
  * @author douglas.f.filho
  *
  */
-public class Perfil {
+public class Usuario {
 	private String nome;
 	private String senha;
 	

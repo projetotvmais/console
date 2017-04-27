@@ -1,5 +1,7 @@
 package br.com.douglasfernandes.console.controller.utils;
 
+import br.com.douglasfernandes.console.model.Perfil;
+
 /**
  * Classe util para ações de login.
  * @author douglas.f.filho
@@ -13,7 +15,7 @@ public class LoginUtils {
 	 * @param senha
 	 * @return
 	 */
-	public static Perfil tentaLogar(String nome, String senha){
+	public Perfil tentaLogar(String nome, String senha){
 		//TODO modificar para o metodo normal.
 		Perfil logado = new Perfil();
 		return logado;

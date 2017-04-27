@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.douglasfernandes.console.controller.utils.LoginUtils;
+import br.com.douglasfernandes.console.model.Perfil;
 
 @Controller
 public class ConsoleController {
