@@ -1,9 +1,10 @@
 package br.com.douglasfernandes.console.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +18,8 @@ public class Assinatura {
 	@Id
 	@GeneratedValue
 	private long id;
-	@Column(name="pacote", nullable=false)
+	@OneToOne
+	@JoinColumn(name = "pacote", nullable = false)
 	private Pacote pacote;
 	
 	public long getId() {

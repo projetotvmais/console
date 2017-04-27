@@ -31,7 +31,7 @@ public class Fatura {
 	@Column(name="vencimento", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar vencimento;
-	@Column(name="vencimento", nullable=false)
+	@Column(name="pago", nullable=false)
 	private boolean pago;
 	@OneToOne
 	@JoinColumn(name = "assinatura", nullable = false)

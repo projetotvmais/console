@@ -7,9 +7,8 @@
 	    <div class="col-md-2"></div>
 	    <div class="col-md-8">
 	    	<div class="row text-center">
+	    		${mensagem}
 	    		<hr>
-	            <h3>Bem vindo às ruas de nossa cidade maravilhosa!</h3>
-	        	<hr>
 	        </div>
 	    </div>
 	    <div class="col-md-2"></div>

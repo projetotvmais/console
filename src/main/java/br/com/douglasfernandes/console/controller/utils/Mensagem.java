@@ -51,4 +51,39 @@ public class Mensagem
 		return DIV_WARNING + message + END_DIV;
 	}
 	
+	/**
+	 * Verifica se a mensagem passada é de sucesso.
+	 * @param message
+	 * @return
+	 */
+	public static boolean isSuccess(String message){
+		return message.contains("alert alert-success");
+	}
+	
+	/**
+	 * Verifica se a mensagem passada é de erro.
+	 * @param message
+	 * @return
+	 */
+	public static boolean isDanger(String message){
+		return message.contains("alert alert-danger");
+	}
+	
+	/**
+	 * Verifica se a mensagem passada é de informação.
+	 * @param message
+	 * @return
+	 */
+	public static boolean isInfo(String message){
+		return message.contains("alert alert-info");
+	}
+	
+	/**
+	 * Verifica se a mensagem passada é de aviso.
+	 * @param message
+	 * @return
+	 */
+	public static boolean isWarnning(String message){
+		return message.contains("alert alert-warning");
+	}
 }

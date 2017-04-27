@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 		
-		<title>Pelas Ruas Que Andei - console</title>
+		<title>TVMais - console</title>
 		
 		<!-- CSS padrão -->
 		<link href='<c:url value="/resources/css/default.css"/>' rel="stylesheet" type="text/css">
