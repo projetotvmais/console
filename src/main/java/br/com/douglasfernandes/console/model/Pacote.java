@@ -1,6 +1,10 @@
 package br.com.douglasfernandes.console.model;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import br.com.douglasfernandes.console.controller.utils.FMT;
 
@@ -9,12 +13,25 @@ import br.com.douglasfernandes.console.controller.utils.FMT;
  * @author douglas.f.filho
  *
  */
+@Entity
+@Table(name = "pacotes")
 public class Pacote {
+	@Id
+	@GeneratedValue
+	private long id;
+	@Column(name="nome", nullable=false, unique=true)
 	private String nome;
+	@Column(name="logo", length=15000000, nullable=false)//Tamanho máximo de 15Mb
 	private byte[] logo;
+	@Column(name="valor", nullable=false)
 	private double valor;
-	private List<Canal> canais;
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -35,11 +52,5 @@ public class Pacote {
 	}
 	public void setValor(double valor) {
 		this.valor = valor;
-	}
-	public List<Canal> getCanais() {
-		return canais;
-	}
-	public void setCanais(List<Canal> canais) {
-		this.canais = canais;
 	}
 }

@@ -2,6 +2,16 @@ package br.com.douglasfernandes.console.model;
 
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import br.com.douglasfernandes.console.controller.utils.FMT;
 import br.com.douglasfernandes.console.controller.utils.FMT.DateFormat;
 
@@ -10,11 +20,29 @@ import br.com.douglasfernandes.console.controller.utils.FMT.DateFormat;
  * @author douglas.f.filho
  *
  */
+@Entity
+@Table(name = "faturas")
 public class Fatura {
+	@Id
+	@GeneratedValue
+	private long id;
+	@Column(name="codigo", nullable=false, unique=true)
 	private String codigo;
+	@Column(name="vencimento", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar vencimento;
+	@Column(name="vencimento", nullable=false)
 	private boolean pago;
+	@OneToOne
+	@JoinColumn(name = "assinatura", nullable = false)
+	private Assinatura assinatura;
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getCodigo() {
 		return codigo;
 	}
@@ -35,5 +63,11 @@ public class Fatura {
 	}
 	public void setPago(boolean pago) {
 		this.pago = pago;
+	}
+	public Assinatura getAssinatura() {
+		return assinatura;
+	}
+	public void setAssinatura(Assinatura assinatura) {
+		this.assinatura = assinatura;
 	}
 }

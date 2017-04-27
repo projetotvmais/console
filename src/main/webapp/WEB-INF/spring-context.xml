@@ -17,7 +17,27 @@
   <mvc:annotation-driven />
   <tx:annotation-driven/>
   <mvc:default-servlet-handler/>
-
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	    <property name="driverClassName" value="org.h2.Driver"/>
+	    <property name="url" value="jdbc:h2:~/h2db/webconsole;MODE=MySQL;MV_STORE=FALSE;AUTO_SERVER=TRUE"/>
+	    <property name="username" value="root"/>
+	    <property name="password" value="$9916do@d"/>
+	  </bean>
+  
+  <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+  	<property name="dataSource" ref="dataSource" />
+  	<property name="persistenceUnitName" value="iptvdatabase"/>
+  	<property name="jpaVendorAdapter">
+    	<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+  	</property>
+  </bean>
+  
+  <!-- gerenciamento da transação pelo spring -->
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+  	<property name="entityManagerFactory" ref="entityManagerFactory"/>
+  </bean>
+  
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/views/"/>
     <property name="suffix" value=".jsp"/>
