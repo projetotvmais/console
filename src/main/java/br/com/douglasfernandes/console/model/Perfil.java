@@ -5,6 +5,7 @@ package br.com.douglasfernandes.console.model;
  * @author douglas.f.filho
  *
  */
+@Entity
 public class Perfil {
 	private String nome;
 	private String senha;

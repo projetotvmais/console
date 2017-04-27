@@ -1,4 +1,4 @@
-package br.com.douglasfernandes.console.model.auxModels;
+package br.com.douglasfernandes.console.controller.utils;
 
 /**
  * Verifica se o cpf ou cnpj de um determinado campo está de acordo com a legislação.

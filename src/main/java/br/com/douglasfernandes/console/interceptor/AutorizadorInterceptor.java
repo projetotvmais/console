@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import br.com.douglasfernandes.console.logger.Logs;
+import br.com.douglasfernandes.console.model.Perfil;
 
 public class AutorizadorInterceptor extends HandlerInterceptorAdapter
 {
@@ -15,12 +16,16 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter
 		  String uri = request.getRequestURI();
 	      Logs.info("[AutorizadorInterceptor INFO]: URL("+uri+")");
 		  
-	      if(uri.contains("WEB-INF")||uri.endsWith("esqueciSenha")||uri.contains("getPontos")||uri.endsWith("login")||uri.endsWith("entrar")||uri.contains("resources")||uri.contains("tags/")||uri.contains("erro")) {
+	      if(uri.contains("WEB-INF")||uri.endsWith("esqueciSenha")||uri.endsWith("login")||uri.endsWith("entrar")||uri.contains("resources")||uri.contains("erro")) {
 	    	  Logs.info("[AutorizadorInterceptor INFO]: Area externa.");
 	    	  return true;
 	      }
 	      
-	      //TODO verifica se tem perfil logado antes.
+	      Perfil logado = (Perfil)request.getSession().getAttribute("logado");
+	      if(logado != null && !logado.getNome().equals("")){
+	    	  Logs.info("[AutorizadorInterceptor INFO]: Usuario logado.");
+	    	  return true;
+	      }
 	      
 	      Logs.warn("[AutorizadorInterceptor WARN]: Login necessario.");
 	      response.sendRedirect("login");

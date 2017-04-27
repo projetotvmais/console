@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.douglasfernandes.console.model.auxModels;
+package br.com.douglasfernandes.console.controller.utils;
 
 /**
  * @author Douglas Fernandes <douglasf.filho@gmail.com>

@@ -10,6 +10,7 @@ import br.com.douglasfernandes.console.model.Perfil;
 
 @Controller
 public class ConsoleController {
+	String mensagem = "";
 	
 	@RequestMapping(value = {"home","/"})
 	public String home(){

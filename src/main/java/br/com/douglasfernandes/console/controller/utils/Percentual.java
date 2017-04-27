@@ -1,4 +1,4 @@
-package br.com.douglasfernandes.console.model.auxModels;
+package br.com.douglasfernandes.console.controller.utils;
 
 import java.util.ArrayList;
 

@@ -19,6 +19,8 @@ public class Usuario {
 	private String cidade;
 	private String cep;
 	
+	private Assinatura assinatura;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -78,5 +80,11 @@ public class Usuario {
 	}
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	public Assinatura getAssinatura() {
+		return assinatura;
+	}
+	public void setAssinatura(Assinatura assinatura) {
+		this.assinatura = assinatura;
 	}
 }

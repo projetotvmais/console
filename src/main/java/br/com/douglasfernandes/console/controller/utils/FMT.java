@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.douglasfernandes.console.model.auxModels;
+package br.com.douglasfernandes.console.controller.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -186,4 +186,17 @@ public class FMT
 		
 		return result;
 	}
+
+	public static String formatAsMoney(double value){
+		try{
+			String valor = String.format("%1$.2f", value);
+			return valor;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			String valor = String.format("%1$.2f", 0.0);
+			return valor;
+		}
+	}
+	
 }
