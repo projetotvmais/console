@@ -1,0 +1,25 @@
+.login-image{
+	display: block;
+	text-align: center;
+	margin: auto;
+	background-size: cover;
+	background-repeat: no-repeat;
+	
+	background-image: url(/console/resources/images/logo/icone.png);
+	width: 100px;
+	height:100px;
+}
+
+.styled-body{
+	background-image: url(/console/resources/images/main_backimage_large.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@media screen and (min-width: 1328px){
+	.login-image{
+		background-image: url(/console/resources/images/logo/logo.png);
+		width: 400px !important;
+		height: 130px !important;
+	}
+}
