@@ -132,6 +132,12 @@
 	    <artifactId>javax.mail-api</artifactId>
 	    <version>1.6.0-rc1</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-email</artifactId>
+	    <version>1.4</version>
+	</dependency>
 	<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
 	<dependency>
 	    <groupId>dom4j</groupId>

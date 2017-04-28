@@ -50,13 +50,19 @@ public class ConsoleController {
 	}
 	
 	@RequestMapping("entrar")
-	public String tentaEntrarComUsuarioESenha(String nome, String senha, HttpSession session){
+	public String tentaEntrarComUsuarioESenha(String nome, String senha, Boolean esqueciFlag, HttpSession session){
 		try{
-			mensagem = perfilDao.tentarLogar(nome, senha, session);
-			if(Mensagem.isSuccess(mensagem)){
-				return "redirect:home";
+			if(esqueciFlag){
+				mensagem = perfilDao.esqueciMinhaSenha(nome);
+				return "redirect:login";
 			}
-			return "redirect:login";
+			else{
+				mensagem = perfilDao.tentarLogar(nome, senha, session);
+				if(Mensagem.isSuccess(mensagem)){
+					return "redirect:home";
+				}
+				return "redirect:login";
+			}
 		}
 		catch(Exception e){
 			e.printStackTrace();

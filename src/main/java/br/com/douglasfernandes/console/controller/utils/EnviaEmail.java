@@ -26,41 +26,33 @@ public class EnviaEmail
 	 * Envia o mesmo e-mail para todos da lista
 	 * @param emails
 	 */
-	public static String envia(String emails, String assunto, String corpo)
+	public static boolean envia(String emails, String assunto, String corpo) throws Exception
 	{
-		try
-		{
-			Properties props = new Properties();
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.starttls.enable", "true");
-			props.put("mail.smtp.host", "smtp.gmail.com");
-			props.put("mail.smtp.port", "587");
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
 
-			Session session = Session.getInstance(props,
-			  new Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(username, password);
-				}
-			  });
+		Session session = Session.getInstance(props,
+		  new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
+		session.setDebug(true);
 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(username));
-			
-			String lista = emails.replace("'", "").replace("[", "").replace("]", "");
-			
-			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(lista));
-			message.setSubject(assunto);
-			message.setText(corpo);
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress(username));
+		
+		String lista = emails.replace("'", "").replace("[", "").replace("]", "");
+		
+		message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(lista));
+		message.setSubject(assunto);
+		message.setText(corpo);
 
-			Transport.send(message);
-			
-			return Mensagem.getSuccess("E-mail enviado!");
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return Mensagem.getDanger("Impossível enviar os e-mails!<br>Verifique se o e-mail servidor está devidamente configurado e tente novamente.");
-		}
+		Transport.send(message);
+		
+		return true;
 	}
 }

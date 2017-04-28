@@ -23,6 +23,8 @@ public class Usuario {
 	
 	@Column(name="nome", nullable=false, unique=true)
 	private String nome;
+	@Column(name="identificacao", nullable=false, unique=true)
+	private String identificacao;
 	@Column(name="senha", nullable=false)
 	private String senha;
 	
@@ -55,6 +57,12 @@ public class Usuario {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public String getIdentificacao() {
+		return identificacao;
+	}
+	public void setIdentificacao(String identificacao) {
+		this.identificacao = identificacao;
 	}
 	public String getSenha() {
 		return senha;

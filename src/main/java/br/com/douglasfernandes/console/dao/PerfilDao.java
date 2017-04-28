@@ -14,4 +14,5 @@ public interface PerfilDao {
 	public String tentarLogar(String nomeOuEmail, String senha, HttpSession session);
 	public byte[] pegarFoto(String nomeOuEmail);
 	public void primeiroAcesso();
+	public String esqueciMinhaSenha(String nomeOuEmail);
 }
