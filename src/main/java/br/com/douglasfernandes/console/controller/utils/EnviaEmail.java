@@ -33,13 +33,6 @@ public class EnviaEmail
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
-		props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		props.setProperty("mail.smtp.socketFactory.fallback", "false");
-		props.setProperty("mail.smtp.port", "587");
-		props.setProperty("mail.smtp.socketFactory.port", "587");
-		props.put("mail.debug", "true");
-		props.put("mail.store.protocol", "pop3");
-		props.put("mail.transport.protocol", "smtp");
 
 		Session session = Session.getInstance(props, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
