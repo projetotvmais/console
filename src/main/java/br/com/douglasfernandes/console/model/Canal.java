@@ -32,6 +32,10 @@ public class Canal {
 	@OneToOne
 	@JoinColumn(name = "pacote", nullable = false)
 	private Pacote pacote;
+	@Column(name="funcionando", nullable=false)
+	private boolean funcionando;
+	@Column(name="observacoes", length=8000)
+	private String observacoes;
 	
 	public long getId() {
 		return id;
@@ -44,6 +48,18 @@ public class Canal {
 	}
 	public void setPacote(Pacote pacote) {
 		this.pacote = pacote;
+	}
+	public boolean isFuncionando() {
+		return funcionando;
+	}
+	public void setFuncionando(boolean funcionando) {
+		this.funcionando = funcionando;
+	}
+	public String getObservacoes() {
+		return observacoes;
+	}
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
 	}
 	public String getNome() {
 		return nome;

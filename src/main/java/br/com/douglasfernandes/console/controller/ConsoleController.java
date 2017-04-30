@@ -1,5 +1,6 @@
 package br.com.douglasfernandes.console.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.douglasfernandes.console.controller.utils.Mensagem;
 import br.com.douglasfernandes.console.dao.PerfilDao;
+import br.com.douglasfernandes.console.logger.Logs;
 
 @Transactional
 @Controller
@@ -21,6 +23,8 @@ public class ConsoleController {
 	private PerfilDao perfilDao;
 	
 	String mensagem = "";
+	
+//	XXX Gerenciamento de entrada, login, logout e perfil.
 	
 	@RequestMapping(value = {"home","/"})
 	public String home(Model model){
@@ -70,8 +74,59 @@ public class ConsoleController {
 		}
 	}
 	
+	@RequestMapping("logout")
+	public String logout(HttpSession session){
+		try{
+			session.invalidate();
+			mensagem = Mensagem.getInfo("Você saiu do sistema.");
+			return "redirect:login";
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	@RequestMapping("mostrarFotoDoPerfil")
+	public void mostrarFotoDoPerfil(String nomeOuEmail, HttpServletResponse response){
+		try{
+			byte[] foto = perfilDao.pegarFoto(nomeOuEmail);
+			if(foto != null)
+			{
+				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+				response.getOutputStream().write(foto);
+				response.getOutputStream().close();
+			}
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::mostrarFotoDoPerfil: Erro tentando pegar foto do perfil. Exception:");
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Cadastra um perfil padrao caso seja a primeira execucao do sistema.
+	 */
 	private void chamaPrimeiroAcesso(){
 		perfilDao.primeiroAcesso();
+	}
+	
+//	XXX Gerenciamento de recursos de canais.
+	
+	/**
+	 * Método que devolve o canal para determinada tag de video do front.
+	 */
+	@RequestMapping("pegarCanal")
+	public void pegarCanal(long id, HttpServletResponse response){
+		try{
+			
+			
+			
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::pegarCanal: Erro ao tentar passar Uri na respose. Exception:");
+			e.printStackTrace();
+		}
 	}
 	
 }
