@@ -34,8 +34,8 @@ public class Fatura {
 	@Column(name="pago", nullable=false)
 	private boolean pago;
 	@OneToOne
-	@JoinColumn(name = "assinatura", nullable = false)
-	private Assinatura assinatura;
+	@JoinColumn(name = "pacote", nullable = false)
+	private Pacote pacote;
 	
 	public long getId() {
 		return id;
@@ -64,10 +64,10 @@ public class Fatura {
 	public void setPago(boolean pago) {
 		this.pago = pago;
 	}
-	public Assinatura getAssinatura() {
-		return assinatura;
+	public Pacote getPacote() {
+		return pacote;
 	}
-	public void setAssinatura(Assinatura assinatura) {
-		this.assinatura = assinatura;
+	public void setPacote(Pacote pacote) {
+		this.pacote = pacote;
 	}
 }

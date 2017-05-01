@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta charset="UTF-8">
@@ -24,7 +24,7 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="<c:url value="resources/favicon/favicon-32x32.png" />">
 		<link rel="icon" type="image/png" sizes="96x96" href="<c:url value="resources/favicon/favicon-96x96.png" />">
 		<link rel="icon" type="image/png" sizes="16x16" href="<c:url value="resources/favicon/favicon-16x16.png" />">
-		<link rel="manifest" href="favicon/manifest.json">
+		<link rel="manifest" href="<c:url value="resources/favicon/manifest.json" />">
 		<meta name="msapplication-TileColor" content="#ffffff">
 		<meta name="msapplication-TileImage" content="<c:url value="resources/favicon/ms-icon-144x144.png" />">
 		<meta name="theme-color" content="#ffffff">
@@ -44,6 +44,8 @@
 		<script type="text/javascript" src='<c:url value="/resources/js/jquery-ui.js"/>'></script>
 		<!-- Inclua, a seguir, todos os plugins pré-compilados, ou inclua arquivos individuais assim que necessário --> 
 		<script type="text/javascript" src='<c:url value="/resources/js/bootstrap.js"/>'></script>
+		<!-- Script padrão do projeto --> 
+		<script type="text/javascript" src='<c:url value="/resources/js/default.js"/>'></script>
 		
 		<!-- HTML5 shim e Respond.js para suporte a elementos e media queries no IE8 -->
 		<!-- WARNING: Respond.js não funciona se tentar visualizar a página via file:// -->

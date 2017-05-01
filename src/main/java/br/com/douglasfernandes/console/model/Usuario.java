@@ -49,8 +49,8 @@ public class Usuario {
 	private String cep;
 	
 	@OneToOne
-	@JoinColumn(name = "assinatura", nullable = false)
-	private Assinatura assinatura;
+	@JoinColumn(name = "pacote", nullable = false)
+	private Pacote pacote;
 	
 	public String getNome() {
 		return nome;
@@ -118,12 +118,6 @@ public class Usuario {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	public Assinatura getAssinatura() {
-		return assinatura;
-	}
-	public void setAssinatura(Assinatura assinatura) {
-		this.assinatura = assinatura;
-	}
 	public long getId() {
 		return id;
 	}
@@ -135,5 +129,11 @@ public class Usuario {
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	public Pacote getPacote() {
+		return pacote;
+	}
+	public void setPacote(Pacote pacote) {
+		this.pacote = pacote;
 	}
 }

@@ -9,8 +9,8 @@ html{
 	background-repeat: no-repeat;
 	
 	background-image: url(/console/resources/images/logo/minor_logo.png);
-	width: 121px  !important;
-	height: 81px !important;
+	width: 120px  !important;
+	height: 80px !important;
 }
 
 .styled-body{
@@ -24,10 +24,86 @@ html{
 	padding-top: 10% !important;
 }
 
+.btn-white.info:hover {
+    background-color: black;
+}
+
+.menu-lateral {
+	z-index: 1;
+	margin-top: 53px;
+	background-color: #e3eff3;
+    box-shadow: 6px 5px 20px 1px black;
+    position: absolute;
+}
+
+.navbar-toggle {
+	display: block !important;
+    position: absolute !important;
+	top: 0px !important;
+    float: left !important;
+    padding: 9px 10px !important;
+    margin-top: 5px !important;
+    margin-left: 5px !important;
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 1px solid transparent  !important;
+    border-radius: 4px !important;
+}
+
+.icon-bar {
+    display: block !important;
+    width: 22px !important;
+    height: 2px !important;
+	border: solid 0.5px !important;
+    border-radius: 1px !important;
+	background-color: aliceblue !important;
+}
+
+.menu{
+	list-style-type: none;
+	margin-bottom: 0px !important;
+	padding-left: 0px !important;
+}
+
+.menu-item{
+	display: block;
+	text-align: center;
+	margin: auto;
+	padding-top: 65% !important;
+	background-size: cover;
+	background-repeat: no-repeat;
+	box-shadow: 3px 3px 20px 0px black;
+	color: #000000;
+    text-shadow: 0px 0px 20px #ffffff;
+	font-weight: bold;
+	width: 55px;
+	height: 55px;
+}
+
+.menu-item:hover{
+	box-shadow: 0px 0px 0px 0px black;
+}
+
 @media screen and (min-width: 1328px){
 	.login-image{
 		background-image: url(/console/resources/images/logo/logo.png);
-		width: 201px  !important;
-		height: 81px !important;
+		width: 200px  !important;
+		height: 80px !important;
+	}
+}
+
+@media screen and (min-width: 364px) and (max-width: 600px){
+	.menu-item{
+		width: 90px;
+		height: 90px;
+	}
+}
+
+@media screen and (min-width: 600px){
+	.menu-item{
+		width: 160px;
+		height: 160px;
 	}
 }

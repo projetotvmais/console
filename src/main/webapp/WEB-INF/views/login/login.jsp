@@ -15,7 +15,7 @@
 				        	<form id="login-form" class="form-group" method="post" action="entrar">
 				            	<input name="nome" type="text" class="form-control" placeholder="Login ou E-mail" required autofocus>
 				                <input name="senha" type="password" class="form-control" placeholder="Senha" required>
-				                <button class="btn-block btn-white form-control info" type="submit">Entrar</button>
+				                <button id="btn-entrar" class="btn-block btn-white form-control info" type="submit">Entrar</button>
 				                <input id="esqueci-flag" name="esqueciFlag" type="hidden" value=false>
 				                <a id="esqueci-minha-senha" class="esqueci-minha-senha">Esqueci minha senha</a>
 				                <script type="text/javascript">
