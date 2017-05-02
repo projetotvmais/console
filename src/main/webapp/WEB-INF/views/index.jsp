@@ -40,7 +40,9 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="row text-center">
-					${mensagem}
+					<div class="col-xs-8 col-xs-offset-2">
+						${mensagem}
+					</div>
 				</div>
 				<div class="row">
 
