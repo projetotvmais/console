@@ -18,6 +18,7 @@ html{
     background-repeat: no-repeat;
     background-size: cover;
     height: 100% !important;
+	width: 93% !important;
 }
 
 .container-fluid {
@@ -31,9 +32,10 @@ html{
 .menu-lateral {
 	z-index: 1;
 	margin-top: 53px;
-	background-color: #e3eff3;
+	background-color: #ffffff;
     box-shadow: 6px 5px 20px 1px black;
     position: absolute;
+	border-radius:30px;
 }
 
 .navbar-toggle {
@@ -65,6 +67,7 @@ html{
 	list-style-type: none;
 	margin-bottom: 0px !important;
 	padding-left: 0px !important;
+	border-radius:30px;
 }
 
 .menu-item{
@@ -72,7 +75,7 @@ html{
 	text-align: center;
 	margin: auto;
 	padding-top: 65% !important;
-	background-size: contain;
+	background-position: center;
 	background-repeat: no-repeat;
 	box-shadow: 3px 3px 20px 0px black;
 	color: #000000;
@@ -80,10 +83,24 @@ html{
 	font-weight: bold;
 	width: 55px;
 	height: 55px;
+	border-radius:30px;
 }
 
 #canais.menu-item{
 	background-image: url(../images/menu-items/canais.png);
+	color: #ffffff;
+}
+
+#pacotes.menu-item{
+	background-image: url(../images/menu-items/pacotes.png);
+}
+
+#clientes.menu-item{
+	background-image: url(../images/menu-items/clientes.png);
+}
+
+#faturas.menu-item{
+	background-image: url(../images/menu-items/faturas.png);
 }
 
 .menu-item:hover{
