@@ -114,6 +114,23 @@ public class ConsoleController {
 //	XXX Gerenciamento de recursos de canais.
 	
 	/**
+	 * Devolve a tela de gerenciamento de canais.
+	 * @return
+	 */
+	@RequestMapping("canais")
+	public String canais(Model model){
+		try{
+			model.addAttribute("mensagem",mensagem);
+			mensagem = "";
+			return "canais/canais";
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	/**
 	 * Método que devolve o canal para determinada tag de video do front.
 	 */
 	@RequestMapping("pegarCanal")
@@ -124,7 +141,7 @@ public class ConsoleController {
 			
 		}
 		catch(Exception e){
-			Logs.warn("[ConsoleController]::pegarCanal: Erro ao tentar passar Uri na respose. Exception:");
+			Logs.warn("[ConsoleController]::pegarCanal: Erro ao tentar pegar canal. Exception:");
 			e.printStackTrace();
 		}
 	}

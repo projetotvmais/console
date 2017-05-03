@@ -31,13 +31,6 @@ function showNavBar(){
     navShown = true;
 }
 
-function carregarPagina(pagina){
-	var dominio = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/";
-    var url = dominio + pagina;
-    console.log("carregando: "+url);
-    $("#main-content").load(url);
-}
-
 function addEventListeners(){
     // Adiciona função de mostrar ou esconder menu no click do botão
     $("#navbar-toggler").click(function(){
@@ -50,11 +43,6 @@ function addEventListeners(){
         }
     });
     
-    // Evento de click no botão de mostrar o gerenciador de canais.
-    $("#canais").click(function(){
-        carregarPagina("canais");
-    });
-    
 }
 
 window.onpageshow = function(){
@@ -63,7 +51,4 @@ window.onpageshow = function(){
 
     // Ativa os listeners
     addEventListeners();
-
-    // Apaga a mensagem aos poucos
-    $("#alert-closeable").addClass("fade");
 }
