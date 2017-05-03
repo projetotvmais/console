@@ -51,4 +51,7 @@ window.onpageshow = function(){
 
     // Ativa os listeners
     addEventListeners();
+
+    // Apaga a mensagem aos poucos
+    $("#alert-closeable").addClass("fade");
 }

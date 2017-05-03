@@ -88,7 +88,6 @@ html{
 
 #canais.menu-item{
 	background-image: url(../images/menu-items/canais.png);
-	color: #ffffff;
 }
 
 #pacotes.menu-item{
@@ -105,6 +104,11 @@ html{
 
 .menu-item:hover{
 	box-shadow: 0px 0px 0px 0px black;
+}
+
+.fade{
+	animation-name: fade;
+    animation-duration: 15s;
 }
 
 @media screen and (min-width: 1328px){
@@ -126,5 +130,25 @@ html{
 	.menu-item{
 		width: 160px;
 		height: 125px;
+	}
+}
+
+@keyframes fade {
+    from {
+		opacity: 1;
+	}
+    to {
+		opacity: 0;
+		display: none;
+	}
+}
+
+@-webkit-keyframes fade {
+    from {
+		opacity: 1;
+	}
+    to {
+		opacity: 0;
+		display: none;
 	}
 }
