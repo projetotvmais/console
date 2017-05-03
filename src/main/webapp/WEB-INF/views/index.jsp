@@ -44,8 +44,8 @@
 						${mensagem}
 					</div>
 				</div>
-				<div class="row">
-
+				<div id="main-content" class="row">
+					
 				</div>
 			</div>
 		</div>
