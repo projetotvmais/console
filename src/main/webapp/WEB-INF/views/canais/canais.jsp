@@ -14,7 +14,7 @@
 		        		</div>
 		        		<div class="panel-body">
 				        	<img alt="Imagem do Canal" src="<c:url value="resources/images/modelos/canais/item-canal.png" />" class="imagem-do-canal">
-				        	<p class="descricao-do-canal">Descrição do canal</p>
+				        	<p class="descricao-do-canal">Descrição do canal: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros at tellus porttitor pellentesque. Aliquam malesuada ex vel enim tristique dictum. Suspendisse lacinia, dolor sed elementum consequat, neque erat convallis eros, sit amet vestibulum purus lacus a enim. Suspendisse bibendum felis id tellus ornare aliquam. Donec eu ex nisl. Duis augue ante, vestibulum non aliquet eget, feugiat vitae velit. Nulla facilisi. Morbi euismod convallis ex a venenatis. Morbi aliquet faucibus arcu, vitae viverra velit rhoncus in. Vestibulum est felis, pellentesque sit amet turpis dignissim, finibus rhoncus purus. Mauris ac sagittis nulla. Pellentesque porta lacinia ante, sit amet scelerisque tellus dignissim sit amet. Quisque eget placerat dolor.</p>
 		        		</div>
 		      		</div>
 		    	</div>
