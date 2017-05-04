@@ -43,6 +43,11 @@ function addEventListeners(){
         }
     });
     
+    // Adiciona evento de click no link de "esqueci minha senha"
+    $("#esqueci-minha-senha").click(function(){
+		$("#esqueci-flag").val(true);
+		$("#login-form").submit();
+    });
 }
 
 window.onpageshow = function(){

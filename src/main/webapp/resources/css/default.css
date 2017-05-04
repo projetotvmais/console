@@ -107,6 +107,21 @@ html{
 	box-shadow: 0px 0px 0px 0px black;
 }
 
+.nome-do-canal{
+	
+}
+
+.imagem-do-canal{
+	width: 250px;
+    height: 150px;
+    position: relative;
+    float: left;
+}
+
+.descricao-do-canal{
+	
+}
+
 @media screen and (min-width: 1328px){
 	.login-image{
 		background-image: url(../images/logo/logo.png);
