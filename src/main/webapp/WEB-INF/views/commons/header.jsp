@@ -37,6 +37,8 @@
 		<link href='<c:url value="/resources/css/font-awesome.css"/>' rel="stylesheet" type="text/css">
 		<!-- CSS jQuery-UI -->
 		<link href='<c:url value="/resources/js/jquery-ui.css"/>' rel="stylesheet" type="text/css">
+		<!-- CSS de animações -->
+		<link href='<c:url value="/resources/css/animated.css"/>' rel="stylesheet" type="text/css">
 		
 		<!-- jQuery (necessário para plugins Bootstrap's JavaScript) --> 
 		<script type="text/javascript" src='<c:url value="/resources/js/jquery.js"/>'></script>
