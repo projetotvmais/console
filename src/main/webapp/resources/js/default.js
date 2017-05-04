@@ -48,6 +48,34 @@ function addEventListeners(){
 		$("#esqueci-flag").val(true);
 		$("#login-form").submit();
     });
+
+    // Adiciona evento de mostrar descrição do canal
+    $(".canal").click(function(event){
+        var id_canal = "#"+event.currentTarget.id;
+        var nome_do_canal = id_canal + " .panel-heading";
+        var imagem_do_canal = id_canal + " .imagem-do-canal";
+        var descricao_do_canal = id_canal + " .descricao-do-canal";
+
+        var deFrente = $(nome_do_canal).hasClass("escondido");
+        if(deFrente){
+            $(id_canal).addClass("animated flipInY");
+            setTimeout(function(){
+                $(id_canal).removeClass("animated flipInY");
+            },500);
+            $(imagem_do_canal).addClass("escondido");
+            $(nome_do_canal).removeClass("escondido");
+            $(descricao_do_canal).removeClass("escondido");
+        }
+        else{
+            $(id_canal).addClass("animated flipInY");
+            setTimeout(function(){
+                $(id_canal).removeClass("animated flipInY");
+            },500);            
+            $(nome_do_canal).addClass("escondido");
+            $(descricao_do_canal).addClass("escondido");
+            $(imagem_do_canal).removeClass("escondido");
+        }
+    });
 }
 
 window.onpageshow = function(){

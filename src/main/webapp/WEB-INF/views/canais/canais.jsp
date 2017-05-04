@@ -5,20 +5,28 @@
 <jsp:include page="../commons/navbar.jsp"/>
 
 		<div class="container-fluid">
-			<div class="row main-row">
-				<div class="col-md-4 col-md-offset-4">
+			<div class="row">
+				<div class="col-ms-4 col-xs-offset-4">
 					${mensagem}
-		      		<div class="panel">
-		      			<div class="panel-heading center-block">
-		            		<p class="nome-do-canal">Nome do canal</p>
-		        		</div>
-		        		<div class="panel-body">
-				        	<img alt="Imagem do Canal" src="<c:url value="resources/images/modelos/canais/item-canal.png" />" class="imagem-do-canal">
-				        	<p class="descricao-do-canal">Descrição do canal: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non eros at tellus porttitor pellentesque. Aliquam malesuada ex vel enim tristique dictum. Suspendisse lacinia, dolor sed elementum consequat, neque erat convallis eros, sit amet vestibulum purus lacus a enim. Suspendisse bibendum felis id tellus ornare aliquam. Donec eu ex nisl. Duis augue ante, vestibulum non aliquet eget, feugiat vitae velit. Nulla facilisi. Morbi euismod convallis ex a venenatis. Morbi aliquet faucibus arcu, vitae viverra velit rhoncus in. Vestibulum est felis, pellentesque sit amet turpis dignissim, finibus rhoncus purus. Mauris ac sagittis nulla. Pellentesque porta lacinia ante, sit amet scelerisque tellus dignissim sit amet. Quisque eget placerat dolor.</p>
-		        		</div>
-		      		</div>
 		    	</div>
 		  	</div>
+		  	<div class="container-fluid">
+				<c:forEach var="canal" items="${canais}">
+					<div class="row canal-row">
+						<div class="col-md-3">
+							<div id="canal${canal.id}" class="panel canal">
+								<div class="panel-heading panel-default center-block escondido">
+									<p class="nome-do-canal">${canal.nome}</p>
+								</div>
+								<div class="panel-body">
+									<img alt="Imagem do Canal" src="carregarLogoDoCanal?id=${canal.id}" class="imagem-do-canal">
+									<p class="descricao-do-canal escondido">${canal.observacoes}</p>
+								</div>
+							</div>
+						</div>
+				  	</div>
+				</c:forEach>
+			</div>
 		</div>
 		
 <jsp:include page="../commons/footer.jsp"/>
