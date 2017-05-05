@@ -27,6 +27,8 @@ public class Pacote {
 	private byte[] logo;
 	@Column(name="valor", nullable=false)
 	private double valor;
+	@Column(name="canais")
+	private String canais;
 	
 	public long getId() {
 		return id;
@@ -65,5 +67,11 @@ public class Pacote {
 	}
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+	public String getCanais() {
+		return canais;
+	}
+	public void setCanais(String canais) {
+		this.canais = canais;
 	}
 }

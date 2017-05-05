@@ -76,6 +76,32 @@ function addEventListeners(){
             $(imagem_do_canal).removeClass("escondido");
         }
     });
+
+    // Abre a form de cadastro de canal no click
+    $("#cadastrar-canal").click(function(){
+        dialog = $("#form-cadastrar-canal").dialog({
+            height: 450,
+            width: 600,
+            modal: true,
+            show: {
+                effect: "fade",
+                duration: 500
+            },
+            hide: {
+                effect: "fade",
+                duration: 500
+            },
+            buttons: {
+                "Cadastrar": function(){
+                    $(this).dialog("close");
+                    $("#form-cadastrar-canal form").submit();
+                },
+                "Cancelar": function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
 }
 
 window.onpageshow = function(){
@@ -84,4 +110,10 @@ window.onpageshow = function(){
 
     // Ativa os listeners
     addEventListeners();
+
+    // Verifica se a página contem scrool vertical e redimensiona a mesma
+    var temScrool = window.scrollbars.visible;
+    if(temScrool){
+        $(".styled-body").addClass("com-scrool");
+    }
 }

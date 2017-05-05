@@ -17,6 +17,7 @@ import br.com.douglasfernandes.console.controller.utils.Mensagem;
 import br.com.douglasfernandes.console.dao.PerfilDao;
 import br.com.douglasfernandes.console.logger.Logs;
 import br.com.douglasfernandes.console.model.Canal;
+import br.com.douglasfernandes.console.model.Classificacao;
 
 @Transactional
 @Controller
@@ -124,8 +125,13 @@ public class ConsoleController {
 	@RequestMapping("canais")
 	public String canais(Model model){
 		try{
+			List<Classificacao> classificacoes = mockDeClassificacoes();
+			model.addAttribute("classificacoes",classificacoes);
+			Logs.info("[ConsoleController::canais: lista de classificacoes:]"+classificacoes.toString());
+			
 			List<Canal> canais = mockDeCanais();
 			model.addAttribute("canais", canais);
+			Logs.info("[ConsoleController::canais: lista de canais: ]"+classificacoes.toString());
 			
 			model.addAttribute("mensagem",mensagem);
 			mensagem = "";
@@ -147,15 +153,17 @@ public class ConsoleController {
 		
 		try{
 			Canal canal = null;
+			Classificacao classificacao = new Classificacao();
+			classificacao.setId(1L);
+			classificacao.setNome("Esportes");
 			
 			for(int i = 1;i <= 10;i++){
 				canal = new Canal();
 				canal.setId(i);
-				canal.setClassificacao("classificacao"+i);
+				canal.setClassificacao(classificacao);
 				canal.setDefaultLogo();
 				canal.setFuncionando(true);
 				canal.setNome("Canal Teste "+i);
-				canal.setPacote(null);
 				canal.setUrl("http://www.youtube.com/canal?id="+i);
 				canal.setObservacoes("Este é um canal de testes de funcionalidade de página. CANAL = "+i);
 				
@@ -167,6 +175,27 @@ public class ConsoleController {
 		}
 		
 		return canais;
+	}
+	
+	/**
+	 * XXX Mock de classificações
+	 * @return
+	 */
+	private List<Classificacao> mockDeClassificacoes(){
+		ArrayList<Classificacao> classificacoes = new ArrayList<Classificacao>();
+		
+		Classificacao classificacao1 = new Classificacao();
+		classificacao1.setId(1L);
+		classificacao1.setNome("Esportes");
+		
+		Classificacao classificacao2 = new Classificacao();
+		classificacao2.setId(2L);
+		classificacao2.setNome("Erotico");
+		
+		classificacoes.add(classificacao1);
+		classificacoes.add(classificacao2);
+		
+		return classificacoes;
 	}
 	
 	/**

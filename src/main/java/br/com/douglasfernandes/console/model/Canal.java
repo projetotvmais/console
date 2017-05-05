@@ -27,11 +27,9 @@ public class Canal {
 	private byte[] logo;
 	@Column(name="url", nullable=false, unique=true)
 	private String url;
-	@Column(name="classificacao", nullable=false)
-	private String classificacao;
 	@OneToOne
-	@JoinColumn(name = "pacote", nullable = false)
-	private Pacote pacote;
+	@JoinColumn(name = "classificacao", nullable = false)
+	private Classificacao classificacao;
 	@Column(name="funcionando", nullable=false)
 	private boolean funcionando;
 	@Column(name="observacoes", length=8000)
@@ -42,12 +40,6 @@ public class Canal {
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public Pacote getPacote() {
-		return pacote;
-	}
-	public void setPacote(Pacote pacote) {
-		this.pacote = pacote;
 	}
 	public boolean isFuncionando() {
 		return funcionando;
@@ -90,10 +82,10 @@ public class Canal {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public String getClassificacao() {
+	public Classificacao getClassificacao() {
 		return classificacao;
 	}
-	public void setClassificacao(String classificacao) {
+	public void setClassificacao(Classificacao classificacao) {
 		this.classificacao = classificacao;
 	}
 }
