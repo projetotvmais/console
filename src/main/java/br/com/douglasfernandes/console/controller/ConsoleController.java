@@ -3,6 +3,7 @@ package br.com.douglasfernandes.console.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -12,8 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import br.com.douglasfernandes.console.controller.utils.Mensagem;
+import br.com.douglasfernandes.console.dao.CanalDao;
 import br.com.douglasfernandes.console.dao.PerfilDao;
 import br.com.douglasfernandes.console.logger.Logs;
 import br.com.douglasfernandes.console.model.Canal;
@@ -26,6 +31,10 @@ public class ConsoleController {
 	@Qualifier("perfilJpa")
 	@Autowired
 	private PerfilDao perfilDao;
+	
+	@Qualifier("canalJpa")
+	@Autowired
+	private CanalDao canalDao;
 	
 	String mensagem = "";
 	
@@ -127,11 +136,11 @@ public class ConsoleController {
 		try{
 			List<Classificacao> classificacoes = mockDeClassificacoes();
 			model.addAttribute("classificacoes",classificacoes);
-			Logs.info("[ConsoleController::canais: lista de classificacoes:]"+classificacoes.toString());
+			Logs.info("[ConsoleController]::canais: lista de classificacoes: "+classificacoes.toString());
 			
 			List<Canal> canais = mockDeCanais();
 			model.addAttribute("canais", canais);
-			Logs.info("[ConsoleController::canais: lista de canais: ]"+classificacoes.toString());
+			Logs.info("[ConsoleController]::canais: lista de canais: "+classificacoes.toString());
 			
 			model.addAttribute("mensagem",mensagem);
 			mensagem = "";
@@ -139,6 +148,35 @@ public class ConsoleController {
 			return "canais/canais";
 		}
 		catch(Exception e){
+			Logs.warn("[ConsoleController]::canais: Erro tentanto listar canais. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	/**
+	 * Cadastrar um novo canal
+	 * @return
+	 */
+	@RequestMapping(value = "cadastrarCanal", method = RequestMethod.POST)
+	public String cadastrarCanal(Canal canal, HttpSession session, HttpServletRequest request){
+		try{
+			canal.setDefaultLogo();
+			
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			MultipartFile multipartFile = multipartRequest.getFile("imagem");
+			
+			byte[] conteudo = multipartFile.getBytes();
+			
+			if(multipartFile != null && conteudo != null && conteudo.length > 1){
+				byte[] logo = multipartFile.getBytes();
+				canal.setLogo(logo);
+			}
+			mensagem = canalDao.cadastrar(canal);
+			return "redirect:canais";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::cadastrarCanal: Erro tentanto cadastrar canal. Exception: ");
 			e.printStackTrace();
 			return "erro/banco";
 		}

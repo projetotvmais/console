@@ -30,22 +30,22 @@
 			</div>
 			<div id="form-cadastrar-canal" title="Cadastrar novo canal">
 				<form method="post" action="cadastrarCanal" class="form-group" enctype="multipart/form-data">
-					<fieldset>
-						Nome: 
-						<input type="text" name="nome" class="form-control" placeholder="Nome">
-						Logo: 
-						<input type="file" name="logo">
-						Url: 
-						<input type="text" name="url" class="form-control" placeholder="Url">
-						Classificação: 
-						<select name="classificacao" class="form-control">
-							<c:forEach var="classificacao" items="${classificacoes}">
-								<option value="${classificacao.id}">${classificacao.nome}</option>
-							</c:forEach>
-						</select>
-						Descrição: 
-						<input type="text" name="observacoes" class="form-control" placeholder="Descrição">
-					</fieldset>
+					Nome: 
+					<input type="text" name="nome" class="form-control" placeholder="Nome">
+					Logo: 
+					<input type="file" id="imagem" name="imagem" class="form-control" title="Escolha uma imagem">
+					Url: 
+					<input type="text" name="url" class="form-control" placeholder="Url">
+					Classificação: 
+					<select name="classificacao" class="form-control">
+						<c:forEach var="classificacao" items="${classificacoes}">
+							<option value="${classificacao.id}">${classificacao.nome}</option>
+						</c:forEach>
+					</select>
+					Descrição: 
+					<input type="text" name="observacoes" class="form-control" placeholder="Descrição">
+					<hr>
+					<button class="btn-block btn-white form-control info" type="submit">Cadastrar</button>
 				</form>
 			</div>
 		</div>

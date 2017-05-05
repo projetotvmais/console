@@ -90,15 +90,6 @@ function addEventListeners(){
             hide: {
                 effect: "fade",
                 duration: 500
-            },
-            buttons: {
-                "Cadastrar": function(){
-                    $(this).dialog("close");
-                    $("#form-cadastrar-canal form").submit();
-                },
-                "Cancelar": function() {
-                    $(this).dialog("close");
-                }
             }
         });
     });
