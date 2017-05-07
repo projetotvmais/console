@@ -15,7 +15,12 @@
 				<c:forEach var="canal" items="${canais}">
 					<div class="row canal-row">
 						<div class="col-md-3">
-							<div id="canal${canal.id}" class="panel canal">
+							<c:if test="${canal.funcionando eq true}">
+								<div id="canal${canal.id}" class="panel canal">
+							</c:if>
+							<c:if test="${canal.funcionando eq false}">
+								<div id="canal${canal.id}" class="panel canal quebrado">
+							</c:if>
 								<div class="panel-heading panel-default center-block escondido">
 									<p class="nome-do-canal">${canal.nome}</p>
 								</div>

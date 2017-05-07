@@ -177,8 +177,7 @@ html{
 }
 
 .quebrado{
-	opacity: 0.1 !important;
-    filter: Alpha(Opacity=10) !important;
+	background-color: #f59f9f !important;
 }
 
 @media screen and (min-width: 1328px){

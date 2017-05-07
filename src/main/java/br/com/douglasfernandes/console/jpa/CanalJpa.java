@@ -86,11 +86,17 @@ public class CanalJpa implements CanalDao{
 			Query query = manager.createQuery("select ch from Canal as ch where ch.id = :id");
 			query.setParameter("id", id);
 			Canal canal = (Canal) query.getSingleResult();
-			Logs.info("[CanalJpa]:: pegarPorId: Canal encontrado: "+canal.getNome());
-			return canal;
+			if(canal != null){
+				Logs.info("[CanalJpa]:: pegarPorId: Canal encontrado: "+canal.getNome());
+				return canal;
+			}
+			else{
+				Logs.warn("[ClassificacaoJpa]::pegarPorId: Erro ao tentar pegar canal por id. Canal não encontrado ID = "+id);
+				return null;
+			}
 		}
 		catch(Exception e){
-			Logs.warn("[ClassificacaoJpa]::pegarClassificacao: Erro ao tentar pegar classificacao por id. Exception: ");
+			Logs.warn("[ClassificacaoJpa]::pegarPorId: Erro ao tentar pegar canal por id. Exception: ");
 			e.printStackTrace();
 			return null;
 		}

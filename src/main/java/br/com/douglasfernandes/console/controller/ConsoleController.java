@@ -142,8 +142,23 @@ public class ConsoleController {
 			Logs.info("[ConsoleController]::canais: lista de classificacoes: "+classificacoes.toString());
 			
 			List<Canal> canais = canalDao.listarPorNome("");
+			
+			/**
+			 *XXX Mock de canal quebrado
+			 */
+			Canal fonte = canais.get(0);
+			Canal canal = new Canal();
+			canal.setId(2);
+			canal.setNome(fonte.getNome());
+			canal.setClassificacao(fonte.getClassificacao());
+			canal.setDefaultLogo();
+			canal.setFuncionando(false);
+			canal.setUrl(fonte.getUrl());
+			canal.setObservacoes(fonte.getObservacoes());
+			canais.add(canal);
+			
 			model.addAttribute("canais", canais);
-			Logs.info("[ConsoleController]::canais: lista de canais: "+classificacoes.toString());
+			Logs.info("[ConsoleController]::canais: lista de canais: "+canais.size());
 			
 			model.addAttribute("mensagem",mensagem);
 			mensagem = "";
