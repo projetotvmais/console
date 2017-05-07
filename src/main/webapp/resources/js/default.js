@@ -55,6 +55,7 @@ function addEventListeners(){
         var nome_do_canal = id_canal + " .panel-heading";
         var imagem_do_canal = id_canal + " .imagem-do-canal";
         var descricao_do_canal = id_canal + " .descricao-do-canal";
+        var rodape = id_canal + " .canal-panel-footer";
 
         var deFrente = $(nome_do_canal).hasClass("escondido");
         if(deFrente){
@@ -65,6 +66,7 @@ function addEventListeners(){
             $(imagem_do_canal).addClass("escondido");
             $(nome_do_canal).removeClass("escondido");
             $(descricao_do_canal).removeClass("escondido");
+            $(rodape).removeClass("escondido");
         }
         else{
             $(id_canal).addClass("animated flipInY");
@@ -73,13 +75,16 @@ function addEventListeners(){
             },500);            
             $(nome_do_canal).addClass("escondido");
             $(descricao_do_canal).addClass("escondido");
+            $(rodape).addClass("escondido");
             $(imagem_do_canal).removeClass("escondido");
         }
     });
 
     // Abre a form de cadastro de canal no click
     $("#cadastrar-canal").click(function(){
-        dialog = $("#form-cadastrar-canal").dialog({
+        // Abre a form
+        $("#form-cadastrar-canal").dialog({
+            top: 60,
             height: 450,
             width: 600,
             modal: true,
@@ -92,6 +97,11 @@ function addEventListeners(){
                 duration: 500
             }
         });
+        // Mostra o conteudo da form
+        $("#form-cadastrar-canal").removeClass("escondido");
+        setTimeout(function(){
+            $(".ui-dialog").addClass("top-60");
+        },500);
     });
 }
 

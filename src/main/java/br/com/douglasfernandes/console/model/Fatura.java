@@ -70,4 +70,9 @@ public class Fatura {
 	public void setPacote(Pacote pacote) {
 		this.pacote = pacote;
 	}
+	@Override
+	public String toString() {
+		return "Fatura [id=" + id + ", codigo=" + codigo + ", vencimento=" + vencimento + ", pago=" + pago + ", pacote="
+				+ pacote.getNome() + "]";
+	}
 }

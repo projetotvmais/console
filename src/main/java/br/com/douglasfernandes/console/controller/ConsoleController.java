@@ -1,6 +1,5 @@
 package br.com.douglasfernandes.console.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import br.com.douglasfernandes.console.controller.parsers.CanalParser;
 import br.com.douglasfernandes.console.controller.utils.Mensagem;
 import br.com.douglasfernandes.console.dao.CanalDao;
+import br.com.douglasfernandes.console.dao.ClassificacaoDao;
 import br.com.douglasfernandes.console.dao.PerfilDao;
 import br.com.douglasfernandes.console.logger.Logs;
 import br.com.douglasfernandes.console.model.Canal;
@@ -35,6 +33,10 @@ public class ConsoleController {
 	@Qualifier("canalJpa")
 	@Autowired
 	private CanalDao canalDao;
+	
+	@Qualifier("classificacaoJpa")
+	@Autowired
+	private ClassificacaoDao classificacaoDao;
 	
 	String mensagem = "";
 	
@@ -123,6 +125,7 @@ public class ConsoleController {
 	 */
 	private void chamaPrimeiroAcesso(){
 		perfilDao.primeiroAcesso();
+		classificacaoDao.primeiroAcesso();
 	}
 	
 //	XXX Gerenciamento de recursos de canais.
@@ -134,11 +137,11 @@ public class ConsoleController {
 	@RequestMapping("canais")
 	public String canais(Model model){
 		try{
-			List<Classificacao> classificacoes = mockDeClassificacoes();
+			List<Classificacao> classificacoes = classificacaoDao.listar();
 			model.addAttribute("classificacoes",classificacoes);
 			Logs.info("[ConsoleController]::canais: lista de classificacoes: "+classificacoes.toString());
 			
-			List<Canal> canais = mockDeCanais();
+			List<Canal> canais = canalDao.listarPorNome("");
 			model.addAttribute("canais", canais);
 			Logs.info("[ConsoleController]::canais: lista de canais: "+classificacoes.toString());
 			
@@ -158,21 +161,15 @@ public class ConsoleController {
 	 * Cadastrar um novo canal
 	 * @return
 	 */
-	@RequestMapping(value = "cadastrarCanal", method = RequestMethod.POST)
-	public String cadastrarCanal(Canal canal, HttpSession session, HttpServletRequest request){
+	@RequestMapping("cadastrarCanal")
+	public String cadastrarCanal(CanalParser parser, HttpServletRequest request){
 		try{
-			canal.setDefaultLogo();
+			Logs.info("[ConsoleController]::cadastrarCanal: Request: "+ parser.toString());
 			
-			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			MultipartFile multipartFile = multipartRequest.getFile("imagem");
-			
-			byte[] conteudo = multipartFile.getBytes();
-			
-			if(multipartFile != null && conteudo != null && conteudo.length > 1){
-				byte[] logo = multipartFile.getBytes();
-				canal.setLogo(logo);
-			}
+			Canal canal = parser.toCanal(classificacaoDao);
 			mensagem = canalDao.cadastrar(canal);
+			Logs.info("[ConsoleController]::cadastrarCanal: Canal cadastrado com exito: "+canal.toString());
+			
 			return "redirect:canais";
 		}
 		catch(Exception e){
@@ -183,75 +180,17 @@ public class ConsoleController {
 	}
 	
 	/**
-	 * XXX Mock de canais
-	 * @return
-	 */
-	private List<Canal> mockDeCanais(){
-		ArrayList<Canal> canais = new ArrayList<Canal>();
-		
-		try{
-			Canal canal = null;
-			Classificacao classificacao = new Classificacao();
-			classificacao.setId(1L);
-			classificacao.setNome("Esportes");
-			
-			for(int i = 1;i <= 10;i++){
-				canal = new Canal();
-				canal.setId(i);
-				canal.setClassificacao(classificacao);
-				canal.setDefaultLogo();
-				canal.setFuncionando(true);
-				canal.setNome("Canal Teste "+i);
-				canal.setUrl("http://www.youtube.com/canal?id="+i);
-				canal.setObservacoes("Este é um canal de testes de funcionalidade de página. CANAL = "+i);
-				
-				canais.add(canal);
-			}
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		return canais;
-	}
-	
-	/**
-	 * XXX Mock de classificações
-	 * @return
-	 */
-	private List<Classificacao> mockDeClassificacoes(){
-		ArrayList<Classificacao> classificacoes = new ArrayList<Classificacao>();
-		
-		Classificacao classificacao1 = new Classificacao();
-		classificacao1.setId(1L);
-		classificacao1.setNome("Esportes");
-		
-		Classificacao classificacao2 = new Classificacao();
-		classificacao2.setId(2L);
-		classificacao2.setNome("Erotico");
-		
-		classificacoes.add(classificacao1);
-		classificacoes.add(classificacao2);
-		
-		return classificacoes;
-	}
-	
-	/**
 	 * Carrega a logo do canal na response (utilizado no atributo src de uma tag img
 	 */
 	@RequestMapping("carregarLogoDoCanal")
 	public void carregarLogoDoCanal(long id, HttpServletResponse response) throws Exception
 	{
-//TODO		Canal canal = canaisDao.getLogoDoCanal(id);
-		Canal canal = new Canal();
-		canal.setId(id);
-		canal.setDefaultLogo();
-		byte[] foto = canal.getLogo();
+		byte[] logo = canalDao.pegarLogoDoCanal(id);
 		
-		if(foto != null)
+		if(logo != null)
 		{
 			response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-			response.getOutputStream().write(foto);
+			response.getOutputStream().write(logo);
 			response.getOutputStream().close();
 		}
 	}
@@ -262,12 +201,15 @@ public class ConsoleController {
 	@RequestMapping("pegarCanal")
 	public void pegarCanal(long id, HttpServletResponse response){
 		try{
-			
-			
-			
+			Canal canal = canalDao.pegarPorId(id);
+			String url = canal.getUrl();
+			response.setContentType("text/html");
+			response.setCharacterEncoding("utf-8");
+			response.getOutputStream().write(url.getBytes());
+			response.getOutputStream().close();
 		}
 		catch(Exception e){
-			Logs.warn("[ConsoleController]::pegarCanal: Erro ao tentar pegar canal. Exception:");
+			Logs.warn("[ConsoleController]::pegarCanal: Erro ao tentar pegar url do canal. Exception:");
 			e.printStackTrace();
 		}
 	}

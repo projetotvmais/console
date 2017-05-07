@@ -12,8 +12,10 @@ import br.com.douglasfernandes.console.model.Canal;
 public interface CanalDao {
 	public String cadastrar(Canal canal);
 	public String atualizar(Canal canal);
-	public String remover(Canal canal);
-	public List<Canal> listarPorClassificacao(String classificaco);
+	public String remover(long id);
+	public Canal pegarPorId(long id);
+	public List<Canal> listarPorClassificacao(String classificacao);
 	public List<Canal> listarPorNome(String nome);
 	public List<Canal> listarPorStatus(boolean funcionando);
+	public byte[] pegarLogoDoCanal(long id);
 }

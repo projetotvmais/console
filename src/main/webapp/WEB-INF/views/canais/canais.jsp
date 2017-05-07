@@ -23,12 +23,16 @@
 									<img alt="Imagem do Canal" src="carregarLogoDoCanal?id=${canal.id}" class="imagem-do-canal">
 									<p class="descricao-do-canal escondido">${canal.observacoes}</p>
 								</div>
+								<div class="panel-footer panel-default canal-panel-footer escondido">
+									<c:if test="${canal.funcionando eq true}">Funcionando</c:if>
+									<c:if test="${canal.funcionando eq false}">Quebrado</c:if>
+								</div>
 							</div>
 						</div>
 				  	</div>
 				</c:forEach>
 			</div>
-			<div id="form-cadastrar-canal" title="Cadastrar novo canal">
+			<div id="form-cadastrar-canal" class="escondido" title="Cadastrar novo canal">
 				<form method="post" action="cadastrarCanal" class="form-group" enctype="multipart/form-data">
 					Nome: 
 					<input type="text" name="nome" class="form-control" placeholder="Nome">
@@ -37,7 +41,7 @@
 					Url: 
 					<input type="text" name="url" class="form-control" placeholder="Url">
 					Classificação: 
-					<select name="classificacao" class="form-control">
+					<select name="classificacao_id" class="form-control">
 						<c:forEach var="classificacao" items="${classificacoes}">
 							<option value="${classificacao.id}">${classificacao.nome}</option>
 						</c:forEach>

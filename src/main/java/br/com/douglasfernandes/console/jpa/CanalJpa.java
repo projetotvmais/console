@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.douglasfernandes.console.controller.utils.Mensagem;
@@ -32,54 +32,162 @@ public class CanalJpa implements CanalDao{
 				if(canal.getUrl() != null && !canal.getUrl().equals("")){
 					canal.setFuncionando(true);
 					manager.persist(canal);
-					Logs.info("[CanalJpa]::cadastrar: Canal registrado com êxito.");
+					Logs.info("[CanalJpa]::cadastrar: Canal registrado com exito.");
 					return Mensagem.getSuccess("Canal registrado com êxito.");
 				}
 				else{
-					Logs.warn("[CanalJpa]::cadastrar: A url do canal não pode ser nula.");
+					Logs.warn("[CanalJpa]::cadastrar: A url do canal nao pode ser nula.");
 					return Mensagem.getWarning("A url do canal não pode ser nula.");
 				}
 			}
 			else{
-				Logs.warn("[CanalJpa]::cadastrar: O nome do canal não pode ser nulo.");
+				Logs.warn("[CanalJpa]::cadastrar: O nome do canal nao pode ser nulo.");
 				return Mensagem.getWarning("O nome do canal não pode ser nulo.");
 			}
 		}
 		catch(Exception e){
-			Logs.warn("[CanalJpa]::cadastrar: Ocorreu um erro ao tentar cadastrar o canal. Contate o suporte técnico. Exception: ");
+			Logs.warn("[CanalJpa]::cadastrar: Ocorreu um erro ao tentar cadastrar o canal. Exception: ");
 			e.printStackTrace();
-			return Mensagem.getDanger("Ocorreu um erro ao tentar cadastrar o canal. Contate o suporte técnico.");
+			return Mensagem.getDanger("Ocorreu um erro ao tentar cadastrar o canal.<br>Contate o suporte técnico.");
 		}
 	}
 
 	@Override
 	public String atualizar(Canal canal) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			if(canal.getNome() != null && !canal.getNome().equals("")){
+				if(canal.getLogo() == null || canal.getLogo().length < 1)
+					canal.setDefaultLogo();
+				if(canal.getUrl() != null && !canal.getUrl().equals("")){
+					manager.merge(canal);
+					Logs.info("[CanalJpa]::atualizar: Canal atualizado com exito.");
+					return Mensagem.getSuccess("Canal atualizado com êxito.");
+				}
+				else{
+					Logs.warn("[CanalJpa]::atualizar: A url do canal nao pode ser nula.");
+					return Mensagem.getWarning("A url do canal não pode ser nula.");
+				}
+			}
+			else{
+				Logs.warn("[CanalJpa]::atualizar: O nome do canal nao pode ser nulo.");
+				return Mensagem.getWarning("O nome do canal não pode ser nulo.");
+			}
+		}
+		catch(Exception e){
+			Logs.warn("[CanalJpa]::atualizar: Ocorreu um erro ao tentar atualizar o canal. Exception: ");
+			e.printStackTrace();
+			return Mensagem.getDanger("Ocorreu um erro ao tentar atualizar o canal.<br>Contate o suporte técnico.");
+		}
 	}
 
 	@Override
-	public String remover(Canal canal) {
-		// TODO Auto-generated method stub
-		return null;
+	public Canal pegarPorId(long id){
+		try{
+			Query query = manager.createQuery("select ch from Canal as ch where ch.id = :id");
+			query.setParameter("id", id);
+			Canal canal = (Canal) query.getSingleResult();
+			Logs.info("[CanalJpa]:: pegarPorId: Canal encontrado: "+canal.getNome());
+			return canal;
+		}
+		catch(Exception e){
+			Logs.warn("[ClassificacaoJpa]::pegarClassificacao: Erro ao tentar pegar classificacao por id. Exception: ");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public String remover(long id) {
+		try{
+			Canal canal = pegarPorId(id);
+			manager.remove(canal);
+			Logs.info("[CanalJpa]::remover: Canal removido com exito.");
+			return Mensagem.getSuccess("Canal removido com êxito.");
+		}
+		catch(Exception e){
+			Logs.warn("[CanalJpa]::remover: Ocorreu um erro ao tentar remover o canal. Exception: ");
+			e.printStackTrace();
+			return Mensagem.getDanger("Ocorreu um erro ao tentar remover o canal.<br>Contate o suporte técnico.");
+		}
 	}
 
 	@Override
-	public List<Canal> listarPorClassificacao(String classificaco) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Canal> listarPorClassificacao(String classificacao) {
+		try{
+			Query query = manager.createQuery("select ch from Canal as ch where ch.classificacao.nome like :classificacao");
+			classificacao = "%" + classificacao + "%";
+			query.setParameter("classificacao", classificacao);
+			@SuppressWarnings("unchecked")
+			List<Canal> canais = query.getResultList();
+			Logs.info("[CanalJpa]:: listarPorClassificacao: Canais encontrados: "+canais.size());
+			return canais;
+		}
+		catch(Exception e){
+			Logs.warn("[ClassificacaoJpa]::listarPorClassificacao: Erro ao tentar pegar canais por classificacao. Exception: ");
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public List<Canal> listarPorNome(String nome) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Query query = manager.createQuery("select ch from Canal as ch where ch.nome like :nome");
+			nome = "%" + nome + "%";
+			query.setParameter("nome", nome);
+			@SuppressWarnings("unchecked")
+			List<Canal> canais = query.getResultList();
+			Logs.info("[CanalJpa]:: listarPorNome: Canais encontrados: "+canais.size());
+			return canais;
+		}
+		catch(Exception e){
+			Logs.warn("[ClassificacaoJpa]::listarPorNome: Erro ao tentar pegar canais por nome. Exception: ");
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public List<Canal> listarPorStatus(boolean funcionando) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Query query = manager.createQuery("select ch from Canal as ch where ch.funcionando = :funcionando");
+			query.setParameter("funcionando", funcionando);
+			@SuppressWarnings("unchecked")
+			List<Canal> canais = query.getResultList();
+			Logs.info("[CanalJpa]:: listarPorStatus: Canais encontrados: "+canais.size());
+			return canais;
+		}
+		catch(Exception e){
+			Logs.warn("[ClassificacaoJpa]::listarPorStatus: Erro ao tentar pegar canais por status. Exception: ");
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public byte[] pegarLogoDoCanal(long id) {
+		try{
+			Canal canal = pegarPorId(id);
+			if(canal != null){
+				if(canal.getLogo() != null && canal.getLogo().length > 1){
+					Logs.info("[CanalJpa]::pegarLogoDoCanal: Imagem de "+canal.getLogo().length+" bytes");
+					return canal.getLogo();
+				}
+				else{
+					Logs.warn("[CanalJpa]::pegarLogoDoCanal: Erro tentando pegar imagem do canal. Imagem nula ou quebrada.");
+					return null;
+				}
+			}
+			else{
+				Logs.warn("[CanalJpa]::pegarLogoDoCanal: Erro tentando pegar imagem do canal. O canal não foi encontrado.");
+				return null;
+			}
+		}
+		catch(Exception e){
+			Logs.warn("[CanalJpa]::pegarLogoDoCanal: Erro tentando pegar imagem do canal. Exception: ");
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

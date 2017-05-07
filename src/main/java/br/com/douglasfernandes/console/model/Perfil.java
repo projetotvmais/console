@@ -128,4 +128,10 @@ public class Perfil {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+	@Override
+	public String toString() {
+		return "Perfil [id=" + id + ", nome=" + nome + ", senha=" + senha + ", email=" + email + ", telefone="
+				+ telefone + ", foto=" + foto.length + " bytes" + ", endereco=" + endereco + ", numero=" + numero
+				+ ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado + ", cep=" + cep + "]";
+	}
 }

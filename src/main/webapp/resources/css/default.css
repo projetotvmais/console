@@ -135,8 +135,11 @@ html{
 
 .canal-panel-body {
     padding: 0px !important;
-    height: 100%;
     width: 100%;
+}
+
+.canal-panel-footer {
+    margin-top: 100px !important;
 }
 
 .imagem-do-canal{
@@ -165,8 +168,17 @@ html{
 
 .ui-widget-overlay {
     background: #000000 50% 50% repeat !important;
-    opacity: 0.9 !important;
-    filter: Alpha(Opacity=90) !important;
+    opacity: 1 !important;
+    filter: Alpha(Opacity=100) !important;
+}
+
+.top-60{
+	top: 60px !important;
+}
+
+.quebrado{
+	opacity: 0.1 !important;
+    filter: Alpha(Opacity=10) !important;
 }
 
 @media screen and (min-width: 1328px){

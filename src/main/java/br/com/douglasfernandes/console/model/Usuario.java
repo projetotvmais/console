@@ -136,4 +136,11 @@ public class Usuario {
 	public void setPacote(Pacote pacote) {
 		this.pacote = pacote;
 	}
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nome=" + nome + ", identificacao=" + identificacao + ", senha=" + senha
+				+ ", email=" + email + ", telefone=" + telefone + ", foto=" + foto.length + " bytes" + ", endereco="
+				+ endereco + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado
+				+ ", cep=" + cep + ", pacote=" + pacote.getNome() + "]";
+	}
 }

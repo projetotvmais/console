@@ -74,4 +74,9 @@ public class Pacote {
 	public void setCanais(String canais) {
 		this.canais = canais;
 	}
+	@Override
+	public String toString() {
+		return "Pacote [id=" + id + ", nome=" + nome + ", logo=" + logo.length + " bytes" + ", valor=" + valor
+				+ ", canais=" + canais + "]";
+	}
 }

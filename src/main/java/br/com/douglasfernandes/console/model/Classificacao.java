@@ -31,4 +31,8 @@ public class Classificacao {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	@Override
+	public String toString() {
+		return "Classificacao [id=" + id + ", nome=" + nome + "]";
+	}
 }

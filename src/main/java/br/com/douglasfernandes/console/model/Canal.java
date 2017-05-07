@@ -88,4 +88,10 @@ public class Canal {
 	public void setClassificacao(Classificacao classificacao) {
 		this.classificacao = classificacao;
 	}
+	@Override
+	public String toString() {
+		return "Canal [id=" + id + ", nome=" + nome + ", logo=" + logo.length + " bytes" + ", url=" + url
+				+ ", classificacao=" + classificacao + ", funcionando=" + funcionando + ", observacoes=" + observacoes
+				+ "]";
+	}
 }
