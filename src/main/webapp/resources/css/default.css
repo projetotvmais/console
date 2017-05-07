@@ -139,7 +139,9 @@ html{
 }
 
 .canal-panel-footer {
-    margin-top: 52px !important;
+    position: absolute !important;
+    width: 248px !important;
+    top: 158px !important;
 }
 
 .imagem-do-canal {
