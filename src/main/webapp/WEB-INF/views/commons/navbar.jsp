@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 		<button id="navbar-toggler" type="button" class="navbar-toggle">
-            <span class="sr-only">Alternar NavegaÃ§Ã£o</span>
+            <span class="sr-only">Alternar Navegação</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>

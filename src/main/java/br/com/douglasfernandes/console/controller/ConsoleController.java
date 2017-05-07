@@ -143,20 +143,6 @@ public class ConsoleController {
 			
 			List<Canal> canais = canalDao.listarPorNome("");
 			
-			/**
-			 *XXX Mock de canal quebrado
-			 */
-			Canal fonte = canais.get(0);
-			Canal canal = new Canal();
-			canal.setId(2);
-			canal.setNome(fonte.getNome());
-			canal.setClassificacao(fonte.getClassificacao());
-			canal.setDefaultLogo();
-			canal.setFuncionando(false);
-			canal.setUrl(fonte.getUrl());
-			canal.setObservacoes(fonte.getObservacoes());
-			canais.add(canal);
-			
 			model.addAttribute("canais", canais);
 			Logs.info("[ConsoleController]::canais: lista de canais: "+canais.size());
 			
@@ -189,6 +175,28 @@ public class ConsoleController {
 		}
 		catch(Exception e){
 			Logs.warn("[ConsoleController]::cadastrarCanal: Erro tentanto cadastrar canal. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	/**
+	 * Cadastrar um novo canal
+	 * @return
+	 */
+	@RequestMapping("atualizarCanal")
+	public String atualizarCanal(CanalParser parser, HttpServletRequest request){
+		try{
+			Logs.info("[ConsoleController]::atualizarCanal: Request: "+ parser.toString());
+			
+			Canal canal = parser.toCanal(classificacaoDao);
+			mensagem = canalDao.atualizar(canal);
+			Logs.info("[ConsoleController]::atualizarCanal: Canal atualizado com exito: "+canal.toString());
+			
+			return "redirect:canais";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::atualizarCanal: Erro tentanto atualizar canal. Exception: ");
 			e.printStackTrace();
 			return "erro/banco";
 		}

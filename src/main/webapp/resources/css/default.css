@@ -139,12 +139,12 @@ html{
 }
 
 .canal-panel-footer {
-    margin-top: 100px !important;
+    margin-top: 52px !important;
 }
 
-.imagem-do-canal{
-	width: 100%;
-    height: 100%;
+.imagem-do-canal {
+    width: 250px;
+    height: 165px;
 }
 
 .escondido{
@@ -160,10 +160,6 @@ html{
 .float-right{
 	float: right;
 	padding-right: 10px;
-}
-
-.ui-dialog-titlebar-close{
-	display: none;
 }
 
 .ui-widget-overlay {

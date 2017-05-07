@@ -41,7 +41,7 @@ public class Canal {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public boolean isFuncionando() {
+	public boolean getFuncionando() {
 		return funcionando;
 	}
 	public void setFuncionando(boolean funcionando) {

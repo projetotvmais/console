@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
 		<meta name="msapplication-TileImage" content="<c:url value="resources/favicon/ms-icon-144x144.png" />">
 		<meta name="theme-color" content="#ffffff">
 		
-		<!-- CSS padrÃ£o -->
+		<!-- CSS padrão -->
 		<link href='<c:url value="/resources/css/default.css"/>' rel="stylesheet" type="text/css">
 		<!-- CSS Bootstrap -->
 		<link href='<c:url value="/resources/css/bootstrap.css"/>' rel="stylesheet" type="text/css">
@@ -36,20 +36,20 @@
 		<link href='<c:url value="/resources/css/font-awesome.css"/>' rel="stylesheet" type="text/css">
 		<!-- CSS jQuery-UI -->
 		<link href='<c:url value="/resources/js/jquery-ui.css"/>' rel="stylesheet" type="text/css">
-		<!-- CSS de animaÃ§Ãµes -->
+		<!-- CSS de animações -->
 		<link href='<c:url value="/resources/css/animate.css"/>' rel="stylesheet" type="text/css">
 		
-		<!-- jQuery (necessÃ¡rio para plugins Bootstrap's JavaScript) --> 
+		<!-- jQuery (necessário para plugins Bootstrap's JavaScript) --> 
 		<script type="text/javascript" src='<c:url value="/resources/js/jquery.js"/>'></script>
-		<!-- jQuery (necessÃ¡rio para plugins jQuery de grÃ¡ficos) --> 
+		<!-- jQuery (necessário para plugins jQuery de gráficos) --> 
 		<script type="text/javascript" src='<c:url value="/resources/js/jquery-ui.js"/>'></script>
-		<!-- Inclua, a seguir, todos os plugins prÃ©-compilados, ou inclua arquivos individuais assim que necessÃ¡rio --> 
+		<!-- Inclua, a seguir, todos os plugins pré-compilados, ou inclua arquivos individuais assim que necessário --> 
 		<script type="text/javascript" src='<c:url value="/resources/js/bootstrap.js"/>'></script>
-		<!-- Script padrÃ£o do projeto --> 
+		<!-- Script padrão do projeto --> 
 		<script type="text/javascript" src='<c:url value="/resources/js/default.js"/>'></script>
 		
 		<!-- HTML5 shim e Respond.js para suporte a elementos e media queries no IE8 -->
-		<!-- WARNING: Respond.js nÃ£o funciona se tentar visualizar a pÃ¡gina via file:// -->
+		<!-- WARNING: Respond.js não funciona se tentar visualizar a página via file:// -->
 		<!--[if lt IE 9]>
 		      <script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		      <script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="../commons/header.jsp"/>
@@ -29,8 +29,43 @@
 									<p class="descricao-do-canal escondido">${canal.observacoes}</p>
 								</div>
 								<div class="panel-footer panel-default canal-panel-footer escondido">
-									<c:if test="${canal.funcionando eq true}">Funcionando</c:if>
-									<c:if test="${canal.funcionando eq false}">Quebrado</c:if>
+									<c:if test="${canal.funcionando eq true}">
+										<p>Status: <b>funcionando</b></p>
+									</c:if>
+									<c:if test="${canal.funcionando eq false}">
+										<p>Status: <b>quebrado</b></p>
+									</c:if>
+									<a id="ver-canal${canal.id}" onclick="vercanal(${canal.id})">Ver informações</a><br>
+									<a href="testarCanal?id=${canal.id}">Testar canal</a>
+									<div id="form-atualizar-canal${canal.id}" class="escondido" title="Atualizar dados de canal">
+										<form method="post" action="atualizarCanal" class="form-group" enctype="multipart/form-data">
+											<input type="hidden" name="id" value="${canal.id}">
+											Nome: 
+											<input type="text" name="nome" class="form-control" placeholder="Nome" value="${canal.nome}">
+											Logo: 
+											<input type="file" id="imagem" name="imagem" class="form-control" title="Escolha uma imagem">
+											Url: 
+											<input type="text" name="url" class="form-control" placeholder="Url" value="${canal.url}">
+											Classificação: 
+											<select name="classificacao_id" class="form-control">
+												<option value="${canal.classificacao.id}">${canal.classificacao.nome}</option>
+												<c:forEach var="classif" items="${classificacoes}">
+													<option value="${classif.id}">${classif.nome}</option>
+												</c:forEach>
+											</select>
+											Descrição: 
+											<input type="text" name="observacoes" class="form-control" placeholder="Descrição" value="${canal.observacoes}">
+											Status:
+											<c:if test="${canal.funcionando eq true}">
+												<input type="checkbox" name="funcionando" value=true checked>
+											</c:if>
+											<c:if test="${canal.funcionando eq false}">
+												<input type="checkbox" name="funcionando" value=false>
+											</c:if>
+											<hr>
+											<button class="btn-block btn-white form-control info" type="submit">Atualizar</button>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -45,14 +80,14 @@
 					<input type="file" id="imagem" name="imagem" class="form-control" title="Escolha uma imagem">
 					Url: 
 					<input type="text" name="url" class="form-control" placeholder="Url">
-					ClassificaÃ§Ã£o: 
+					Classificação: 
 					<select name="classificacao_id" class="form-control">
 						<c:forEach var="classificacao" items="${classificacoes}">
 							<option value="${classificacao.id}">${classificacao.nome}</option>
 						</c:forEach>
 					</select>
-					DescriÃ§Ã£o: 
-					<input type="text" name="observacoes" class="form-control" placeholder="DescriÃ§Ã£o">
+					Descrição: 
+					<input type="text" name="observacoes" class="form-control" placeholder="Descrição">
 					<hr>
 					<button class="btn-block btn-white form-control info" type="submit">Cadastrar</button>
 				</form>

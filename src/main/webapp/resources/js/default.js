@@ -31,6 +31,30 @@ function showNavBar(){
     navShown = true;
 }
 
+function vercanal(canal){
+    // Abre a form
+    $("#form-atualizar-canal"+canal).dialog({
+        top: 60,
+        height: 450,
+        width: 600,
+        modal: true,
+        show: {
+            effect: "fade",
+            duration: 500
+        },
+        hide: {
+            effect: "fade",
+            duration: 500
+        }
+    });
+
+    // Mostra o conteudo da form
+    $("#form-atualizar-canal"+canal).removeClass("escondido");
+    setTimeout(function(){
+        $(".ui-dialog").addClass("top-60");
+    },500);
+}
+
 function addEventListeners(){
     // Adiciona função de mostrar ou esconder menu no click do botão
     $("#navbar-toggler").click(function(){
