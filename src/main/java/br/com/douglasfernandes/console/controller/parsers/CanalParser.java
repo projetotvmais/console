@@ -15,7 +15,7 @@ public class CanalParser {
 	private long id = 0;
 	private String nome;
 	private MultipartFile imagem;
-	private boolean funcionando = true;
+	private String funcionando = "true";
 	private String url;
 	private long classificacao_id;
 	private String observacoes;
@@ -38,10 +38,10 @@ public class CanalParser {
 	public void setImagem(MultipartFile imagem) {
 		this.imagem = imagem;
 	}
-	public boolean getFuncionando() {
+	public String getFuncionando() {
 		return funcionando;
 	}
-	public void setFuncionando(boolean funcionando) {
+	public void setFuncionando(String funcionando) {
 		this.funcionando = funcionando;
 	}
 	public String getUrl() {
@@ -64,18 +64,19 @@ public class CanalParser {
 	}
 	@Override
 	public String toString() {
-		return "CanalParser [id=" + id + ",nome=" + nome + ", imagem(tamanho)=" + imagem.getName() + "(" + imagem.getSize() + ")" + "funcionando=" + funcionando + ", url=" + url + ", classificacao_id="
+		return "CanalParser [id=" + id + ",nome=" + nome + ", imagem(tamanho)=" + imagem.getName() + "(" + imagem.getSize() + ")" + ", funcionando=" + funcionando + ", url=" + url + ", classificacao_id="
 				+ classificacao_id + ", observacoes=" + observacoes + "]";
 	}
 	public Canal toCanal()throws Exception {
 		Canal canal = new Canal();
 		canal.setId(id);
 		canal.setClassificacao(null);
-		canal.setFuncionando(funcionando);
+		if(funcionando != null && !funcionando.equals("") && funcionando.equals("true"))
+			canal.setFuncionando(true);
+		else
+			canal.setFuncionando(false);
 		if(imagem != null && imagem.getSize() > 1)
 			canal.setLogo(imagem.getBytes());
-		else
-			canal.setDefaultLogo();
 		canal.setNome(nome);
 		canal.setObservacoes(observacoes);
 		canal.setUrl(url);

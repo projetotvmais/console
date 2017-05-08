@@ -56,8 +56,10 @@ public class CanalJpa implements CanalDao{
 	public String atualizar(Canal canal) {
 		try{
 			if(canal.getNome() != null && !canal.getNome().equals("")){
-				if(canal.getLogo() == null || canal.getLogo().length < 1)
-					canal.setDefaultLogo();
+				if(canal.getLogo() == null || canal.getLogo().length < 1){
+					byte[] logoOriginal = pegarLogoDoCanal(canal.getId());
+					canal.setLogo(logoOriginal);
+				}
 				if(canal.getUrl() != null && !canal.getUrl().equals("")){
 					manager.merge(canal);
 					Logs.info("[CanalJpa]::atualizar: Canal atualizado com exito.");

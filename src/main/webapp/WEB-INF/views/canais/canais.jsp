@@ -54,14 +54,12 @@
 												</c:forEach>
 											</select>
 											Descrição: 
-											<input type="text" name="observacoes" class="form-control" placeholder="Descrição" value="${canal.observacoes}">
+											<input type="text" name="observacoes" class="form-control" placeholder="Descrição" value="${canal.observacoes}" required>
 											Status:
-											<c:if test="${canal.funcionando eq true}">
-												<input type="checkbox" name="funcionando" value=true checked>
-											</c:if>
-											<c:if test="${canal.funcionando eq false}">
-												<input type="checkbox" name="funcionando" value=false>
-											</c:if>
+											<select name=funcionando class="form-control">
+												<option value="true">Sim</option>
+												<option value="false">Não</option>
+											</select>
 											<hr>
 											<button class="btn-block btn-white form-control info" type="submit">Atualizar</button>
 										</form>

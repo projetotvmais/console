@@ -35,7 +35,7 @@ function vercanal(canal){
     // Abre a form
     $("#form-atualizar-canal"+canal).dialog({
         top: 60,
-        height: 450,
+        height: 520,
         width: 600,
         modal: true,
         show: {
@@ -109,7 +109,7 @@ function addEventListeners(){
         // Abre a form
         $("#form-cadastrar-canal").dialog({
             top: 60,
-            height: 450,
+            height: 520,
             width: 600,
             modal: true,
             show: {
