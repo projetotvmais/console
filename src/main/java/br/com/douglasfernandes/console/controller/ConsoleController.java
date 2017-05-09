@@ -240,7 +240,8 @@ public class ConsoleController {
 	@RequestMapping("testarCanal")
 	public String testarCanal(long id, Model model){
 		try{
-			model.addAttribute("idDoCanal",id);
+			Canal canal = canalDao.pegarPorId(id);
+			model.addAttribute("canal",canal);
 			return "canais/teste";
 		}
 		catch(Exception e){
