@@ -27,17 +27,31 @@ public class CanalJpa implements CanalDao{
 	public String cadastrar(Canal canal) {
 		try{
 			if(canal.getNome() != null && !canal.getNome().equals("")){
-				if(canal.getLogo() == null || canal.getLogo().length < 1)
-					canal.setDefaultLogo();
-				if(canal.getUrl() != null && !canal.getUrl().equals("")){
-					canal.setFuncionando(true);
-					manager.persist(canal);
-					Logs.info("[CanalJpa]::cadastrar: Canal registrado com exito.");
-					return Mensagem.getSuccess("Canal registrado com êxito.");
+				Canal teste = pegarPorNome(canal.getNome());
+				if(teste == null){
+					if(canal.getLogo() == null || canal.getLogo().length < 1)
+						canal.setDefaultLogo();
+					if(canal.getUrl() != null && !canal.getUrl().equals("")){
+						teste = pegarPorUrl(canal.getUrl());
+						if(teste != null){
+							canal.setFuncionando(true);
+							manager.persist(canal);
+							Logs.info("[CanalJpa]::cadastrar: Canal registrado com exito.");
+							return Mensagem.getSuccess("Canal registrado com êxito.");
+						}
+						else{
+							Logs.warn("[CanalJpa]::cadastrar: Ja existe um canal registrado com esta URL.");
+							return Mensagem.getWarning("Já existe um canal registrado com esta URL.");
+						}
+					}
+					else{
+						Logs.warn("[CanalJpa]::cadastrar: A url do canal nao pode ser nula.");
+						return Mensagem.getWarning("A url do canal não pode ser nula.");
+					}
 				}
 				else{
-					Logs.warn("[CanalJpa]::cadastrar: A url do canal nao pode ser nula.");
-					return Mensagem.getWarning("A url do canal não pode ser nula.");
+					Logs.warn("[CanalJpa]::cadastrar: Ja existe um canal cadastrado com este nome. NOME="+canal.getNome());
+					return Mensagem.getWarning("Já existe um canal com este nome.");
 				}
 			}
 			else{
@@ -56,18 +70,32 @@ public class CanalJpa implements CanalDao{
 	public String atualizar(Canal canal) {
 		try{
 			if(canal.getNome() != null && !canal.getNome().equals("")){
-				if(canal.getLogo() == null || canal.getLogo().length < 1){
-					byte[] logoOriginal = pegarLogoDoCanal(canal.getId());
-					canal.setLogo(logoOriginal);
-				}
-				if(canal.getUrl() != null && !canal.getUrl().equals("")){
-					manager.merge(canal);
-					Logs.info("[CanalJpa]::atualizar: Canal atualizado com exito.");
-					return Mensagem.getSuccess("Canal atualizado com êxito.");
+				Canal teste = pegarPorNome(canal.getNome());
+				if(teste == null){
+					if(canal.getLogo() == null || canal.getLogo().length < 1){
+						byte[] logoOriginal = pegarLogoDoCanal(canal.getId());
+						canal.setLogo(logoOriginal);
+					}
+					if(canal.getUrl() != null && !canal.getUrl().equals("")){
+						teste = pegarPorUrl(canal.getUrl());
+						if(teste != null){
+							manager.merge(canal);
+							Logs.info("[CanalJpa]::atualizar: Canal atualizado com exito.");
+							return Mensagem.getSuccess("Canal atualizado com êxito.");
+						}
+						else{
+							Logs.warn("[CanalJpa]::atualizar: Ja existe um canal registrado com esta URL.");
+							return Mensagem.getWarning("Já existe um canal registrado com esta URL.");
+						}
+					}
+					else{
+						Logs.warn("[CanalJpa]::atualizar: A url do canal nao pode ser nula.");
+						return Mensagem.getWarning("A url do canal não pode ser nula.");
+					}
 				}
 				else{
-					Logs.warn("[CanalJpa]::atualizar: A url do canal nao pode ser nula.");
-					return Mensagem.getWarning("A url do canal não pode ser nula.");
+					Logs.warn("[CanalJpa]::atualizar: Ja existe um canal cadastrado com este nome. NOME="+canal.getNome());
+					return Mensagem.getWarning("Já existe um canal com este nome.");
 				}
 			}
 			else{
@@ -99,6 +127,48 @@ public class CanalJpa implements CanalDao{
 		}
 		catch(Exception e){
 			Logs.warn("[ClassificacaoJpa]::pegarPorId: Erro ao tentar pegar canal por id. Exception: ");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	private Canal pegarPorNome(String nome){
+		try{
+			Query query = manager.createQuery("select ch from Canal as ch where ch.nome = :nome");
+			query.setParameter("nome", nome);
+			Canal canal = (Canal) query.getSingleResult();
+			if(canal != null){
+				Logs.info("[CanalJpa]:: pegarPorNome: Canal encontrado: "+canal.getNome());
+				return canal;
+			}
+			else{
+				Logs.warn("[ClassificacaoJpa]::pegarPorNome: Erro ao tentar pegar canal por nome. Canal não encontrado NOME = "+nome);
+				return null;
+			}
+		}
+		catch(Exception e){
+			Logs.warn("[ClassificacaoJpa]::pegarPorNome: Erro ao tentar pegar canal por id. Exception: ");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	private Canal pegarPorUrl(String url){
+		try{
+			Query query = manager.createQuery("select ch from Canal as ch where ch.url = :url");
+			query.setParameter("url", url);
+			Canal canal = (Canal) query.getSingleResult();
+			if(canal != null){
+				Logs.info("[CanalJpa]:: pegarPorUrl: Canal encontrado: "+canal.getNome());
+				return canal;
+			}
+			else{
+				Logs.warn("[ClassificacaoJpa]::pegarPorUrl: Erro ao tentar pegar canal pela url. Canal não encontrado URL = "+url);
+				return null;
+			}
+		}
+		catch(Exception e){
+			Logs.warn("[ClassificacaoJpa]::pegarPorUrl: Erro ao tentar pegar canal pela url. Exception: ");
 			e.printStackTrace();
 			return null;
 		}

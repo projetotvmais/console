@@ -203,7 +203,7 @@ public class ConsoleController {
 	}
 	
 	/**
-	 * Carrega a logo do canal na response (utilizado no atributo src de uma tag img
+	 * Carrega a logo do canal na response (utilizado no atributo src de uma tag img)
 	 */
 	@RequestMapping("carregarLogoDoCanal")
 	public void carregarLogoDoCanal(long id, HttpServletResponse response) throws Exception

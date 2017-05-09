@@ -14,7 +14,7 @@
 		  	<div class="container-fluid">
 				<c:forEach var="canal" items="${canais}">
 					<div class="row canal-row">
-						<div class="col-md-3">
+						<div class="col-md-3" id="${canal.nome}"><!-- Filtrar canais usando jquery find no id de cada div dando hide  -->
 							<c:if test="${canal.funcionando eq true}">
 								<div id="canal${canal.id}" class="panel canal">
 							</c:if>
@@ -43,7 +43,7 @@
 											Nome: 
 											<input type="text" name="nome" class="form-control" placeholder="Nome" value="${canal.nome}">
 											Logo: 
-											<input type="file" id="imagem" name="imagem" class="form-control" title="Escolha uma imagem">
+											<input type="file" accept="image/*" id="imagem" name="imagem" class="form-control" title="Escolha uma imagem">
 											Url: 
 											<input type="text" name="url" class="form-control" placeholder="Url" value="${canal.url}">
 											Classificação: 
@@ -75,7 +75,7 @@
 					Nome: 
 					<input type="text" name="nome" class="form-control" placeholder="Nome">
 					Logo: 
-					<input type="file" id="imagem" name="imagem" class="form-control" title="Escolha uma imagem">
+					<input type="file" accept="image/*" id="imagem" name="imagem" class="form-control" title="Escolha uma imagem">
 					Url: 
 					<input type="text" name="url" class="form-control" placeholder="Url">
 					Classificação: 

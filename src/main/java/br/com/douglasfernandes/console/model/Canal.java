@@ -90,8 +90,33 @@ public class Canal {
 	}
 	@Override
 	public String toString() {
-		return "Canal [id=" + id + ", nome=" + nome + ", logo=" + logo.length + " bytes" + ", url=" + url
-				+ ", classificacao=" + classificacao + ", funcionando=" + funcionando + ", observacoes=" + observacoes
+		String nome = "";
+		if(this.nome != null)
+			nome = this.nome;
+		
+		int len = 0;
+		if(logo != null)
+			len = logo.length;
+		
+		String url = "";
+		if(this.url != null)
+			url = this.url;
+		
+		String classificacao = "";
+		if(this.classificacao != null)
+			classificacao = this.classificacao.getNome();
+		
+		String observacoes = "";
+		if(this.observacoes != null)
+			observacoes = this.observacoes;
+		
+		return "Canal [id=" + id + ", " + 
+			   "nome=" + nome + ", " + 
+				"logo=" + len + " bytes" + ", " + 
+				"url=" + url + ", " + 
+				"classificacao=" + classificacao + ", " +
+				"funcionando=" + funcionando + ", " +
+				"observacoes=" + observacoes
 				+ "]";
 	}
 }

@@ -28,9 +28,16 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 	public String cadastrar(Classificacao classificacao) {
 		try{
 			if(classificacao.getNome() != null && !classificacao.getNome().equals("")){
-				manager.persist(classificacao);
-				Logs.info("[ClassificacaoJpa]::cadastrar: item removido.");
-				return Mensagem.getSuccess("Classificação cadastrada com êxito.");
+				Classificacao teste = pegarClassificacaoPorNome(classificacao.getNome());
+				if(teste == null){
+					manager.persist(classificacao);
+					Logs.info("[ClassificacaoJpa]::cadastrar: classificacao cadastrada. "+classificacao.toString());
+					return Mensagem.getSuccess("Classificação cadastrada com êxito.");
+				}
+				else{
+					Logs.warn("[ClassificacaoJpa]::cadastrar: Ja existe classificacao com este nome. NOME="+classificacao.getNome());
+					return Mensagem.getDanger("Já existe classificação com este nome");
+				}
 			}
 			else{
 				Logs.warn("[ClassificacaoJpa]::cadastrar: O nome do item nao pode ficar em branco.");
@@ -48,9 +55,16 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 	public String atualizar(Classificacao classificacao) {
 		try{
 			if(classificacao.getNome() != null && !classificacao.getNome().equals("")){
-				manager.merge(classificacao);
-				Logs.info("[ClassificacaoJpa]::atualizar: item atualizado.");
-				return Mensagem.getSuccess("Classificação atualizada com êxito.");
+				Classificacao teste = pegarClassificacaoPorNome(classificacao.getNome());
+				if(teste == null){
+					manager.merge(classificacao);
+					Logs.info("[ClassificacaoJpa]::atualizar: classificacao atualizada. "+classificacao.toString());
+					return Mensagem.getSuccess("Classificação atualizada com êxito.");
+				}
+				else{
+					Logs.warn("[ClassificacaoJpa]::atualizar: Ja existe classificacao com este nome. NOME="+classificacao.getNome());
+					return Mensagem.getDanger("Já existe classificação com este nome");
+				}
 			}
 			else{
 				Logs.warn("[ClassificacaoJpa]::atualizar: O nome do item nao pode ficar em branco.");
@@ -85,7 +99,7 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 			Query query = manager.createQuery("select c from Classificacao as c");
 			@SuppressWarnings("unchecked")
 			List<Classificacao> classificacoes = query.getResultList();
-			Logs.info("[ClassificacaoJpa]:: listar: Classificacoes encontradas: "+classificacoes.size());
+			Logs.info("[ClassificacaoJpa]:: listar: " + classificacoes.size() + " classificacoes encontradas.");
 			return classificacoes;
 		}
 		catch(Exception e){
@@ -111,6 +125,21 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 		}
 	}
 
+	private Classificacao pegarClassificacaoPorNome(String nome) {
+		try{
+			Query query = manager.createQuery("select c from Classificacao as c where c.nome = :nome");
+			query.setParameter("nome", nome);
+			Classificacao classificacao = (Classificacao) query.getSingleResult();
+			Logs.info("[ClassificacaoJpa]:: pegarClassificacaoPorNome: Classificacao encontrada: "+classificacao.getNome());
+			return classificacao;
+		}
+		catch(Exception e){
+			Logs.warn("[ClassificacaoJpa]::pegarClassificacaoPorNome: Erro ao tentar pegar classificacao por nome. Exception: ");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@Override
 	public void primeiroAcesso() {
 		List<Classificacao> classificacoes = listar();

@@ -33,6 +33,10 @@ public class Classificacao {
 	}
 	@Override
 	public String toString() {
+		String nome = "";
+		if(this.nome != null)
+			nome = this.nome;
+		
 		return "Classificacao [id=" + id + ", nome=" + nome + "]";
 	}
 }
