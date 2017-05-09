@@ -237,4 +237,16 @@ public class ConsoleController {
 		}
 	}
 	
+	@RequestMapping("testarCanal")
+	public String testarCanal(long id, Model model){
+		try{
+			model.addAttribute("idDoCanal",id);
+			return "canais/teste";
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
 }
