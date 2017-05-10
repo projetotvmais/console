@@ -139,7 +139,7 @@ public class ConsoleController {
 		try{
 			List<Classificacao> classificacoes = classificacaoDao.listar();
 			model.addAttribute("classificacoes",classificacoes);
-			Logs.info("[ConsoleController]::canais: lista de classificacoes: "+classificacoes.toString());
+			Logs.info("[ConsoleController]::canais: "+classificacoes.size()+" classificacoes encontradas.");
 			
 			List<Canal> canais = canalDao.listarPorNome("");
 			
@@ -245,6 +245,38 @@ public class ConsoleController {
 			return "canais/teste";
 		}
 		catch(Exception e){
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	/**
+	 * Devolve a tela de gerenciamento de canais.
+	 * @return
+	 */
+	@RequestMapping("pesquisarCanal")
+	public String canais(String pesquisa, Model model){
+		try{
+			if(pesquisa == null || pesquisa.equals(""))
+				return "redirect:canais";
+			
+			List<Classificacao> classificacoes = classificacaoDao.listar();
+			model.addAttribute("classificacoes",classificacoes);
+			Logs.info("[ConsoleController]::canais: "+classificacoes.size()+" classificacoes encontradas");
+			
+			List<Canal> canais = canalDao.listarPorNome(pesquisa);
+			
+			model.addAttribute("pesquisa", pesquisa);
+			model.addAttribute("canais", canais);
+			Logs.info("[ConsoleController]::canais: lista de canais: "+canais.size());
+			
+			model.addAttribute("mensagem",mensagem);
+			mensagem = "";
+			
+			return "canais/canais";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::canais: Erro tentanto listar canais. Exception: ");
 			e.printStackTrace();
 			return "erro/banco";
 		}

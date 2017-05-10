@@ -6,15 +6,26 @@
 
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xs-4 col-xs-offset-4 text-center">
+				<a id="cadastrar-canal" href="#" class="float-right">Cadastrar canal</a>
+
+				<div class="col-xs-8 col-xs-offset-2 text-center">
 					${mensagem}
 		    	</div>
-		    	<a id="cadastrar-canal" class="float-right">Cadastrar canal</a>
+		    	
 		  	</div>
+			<div class="row div-pesquisa">
+				<div class="col-xs-8 col-xs-offset-2 text-center">
+					<form method="post" action="pesquisarCanal">
+						<input id="pesquisa" type="text" class="form-control text-center" name="pesquisa" value="${pesquisa}">
+						<button class="btn-block btn-white form-control info" type="submit">Filtrar</button>
+					</form>
+				</div>
+			</div>
 		  	<div class="container-fluid">
 				<c:forEach var="canal" items="${canais}">
+					
 					<div class="row canal-row">
-						<div class="col-md-3" id="${canal.nome}"><!-- Filtrar canais usando jquery find no id de cada div dando hide  -->
+						<div class="col-md-3">
 							<c:if test="${canal.funcionando eq true}">
 								<div id="canal${canal.id}" class="panel canal">
 							</c:if>
