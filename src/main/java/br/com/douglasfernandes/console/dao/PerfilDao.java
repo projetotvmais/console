@@ -10,9 +10,9 @@ import br.com.douglasfernandes.console.model.Perfil;
  *
  */
 public interface PerfilDao {
+	public Perfil lerPerfil();
 	public String atualizar(Perfil perfil);
 	public String tentarLogar(String nomeOuEmail, String senha, HttpSession session);
-	public byte[] pegarFoto(String nomeOuEmail);
 	public void primeiroAcesso();
 	public String esqueciMinhaSenha(String nomeOuEmail);
 }

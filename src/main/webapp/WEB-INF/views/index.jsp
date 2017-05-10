@@ -6,17 +6,36 @@
 		
 		<div class="container-fluid">
 			<div class="row">
+				<a id="mudar-login" href="#" class="float-right">Mudar dados de login</a>
+
+				<div class="col-xs-8 col-xs-offset-2 text-center">
+					${mensagem}
+		    	</div>
+		    	
+		  	</div>
+			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<div class="row text-center">
-						<div class="col-xs-8 col-xs-offset-2">
-							${mensagem}
-						</div>
-					</div>
 					<div id="main-content" class="row">
 						
 					</div>
 				</div>
 			</div>
+		</div>
+		<div id="form-mudar-login" class="escondido" title="Mudar dados de login">
+			<form method="post" action="atualizarPerfil" class="form-group" enctype="multipart/form-data">
+				<input type="hidden" name="id" value="${perfil.id}">
+				Nome: 
+				<input type="text" name="nome" class="form-control" placeholder="Nome" value="${perfil.nome}">
+				Senha:
+				<input type="password" name="senha" class="form-control" placeholder="Senha" value="${perfil.senha}">
+				E-mail:
+				<input type="text" name="email" class="form-control" placeholder="E-mail" value="${perfil.email}">
+				Telefone:
+				<input type="text" name="telefone" class="form-control" placeholder="Telefone" value="${perfil.telefone}">
+				
+				<hr>
+				<button class="btn-block btn-white form-control info" type="submit">Cadastrar</button>
+			</form>
 		</div>
 	
 <jsp:include page="commons/footer.jsp"/>

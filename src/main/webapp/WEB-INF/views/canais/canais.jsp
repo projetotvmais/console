@@ -6,7 +6,8 @@
 
 		<div class="container-fluid">
 			<div class="row">
-				<a id="cadastrar-canal" href="#" class="float-right">Cadastrar canal</a>
+				<a id="cadastrar-canal" href="#" class="float-right">Cadastrar canal</a><br>
+				<a id="btn-home" href="home" class="float-right">Home</a>
 
 				<div class="col-xs-8 col-xs-offset-2 text-center">
 					${mensagem}

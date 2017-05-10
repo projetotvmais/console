@@ -127,6 +127,30 @@ function addEventListeners(){
             $(".ui-dialog").addClass("top-60");
         },500);
     });
+    
+    // Abre a form de atualização de perfil
+    $("#mudar-login").click(function(){
+        // Abre a form
+        $("#form-mudar-login").dialog({
+            top: 60,
+            height: 520,
+            width: 600,
+            modal: true,
+            show: {
+                effect: "fade",
+                duration: 500
+            },
+            hide: {
+                effect: "fade",
+                duration: 500
+            }
+        });
+        // Mostra o conteudo da form
+        $("#form-mudar-login").removeClass("escondido");
+        setTimeout(function(){
+            $(".ui-dialog").addClass("top-60");
+        },500);
+    });
 }
 
 window.onpageshow = function(){

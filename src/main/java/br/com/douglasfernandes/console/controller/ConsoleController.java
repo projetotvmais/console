@@ -21,6 +21,7 @@ import br.com.douglasfernandes.console.dao.PerfilDao;
 import br.com.douglasfernandes.console.logger.Logs;
 import br.com.douglasfernandes.console.model.Canal;
 import br.com.douglasfernandes.console.model.Classificacao;
+import br.com.douglasfernandes.console.model.Perfil;
 
 @Transactional
 @Controller
@@ -45,6 +46,9 @@ public class ConsoleController {
 	@RequestMapping(value = {"home","/"})
 	public String home(Model model){
 		try{
+			Perfil perfil = perfilDao.lerPerfil();
+			model.addAttribute("perfil",perfil);
+			
 			model.addAttribute("mensagem",mensagem);
 			mensagem = "";
 			return "index";
@@ -103,20 +107,15 @@ public class ConsoleController {
 		}
 	}
 	
-	@RequestMapping("mostrarFotoDoPerfil")
-	public void mostrarFotoDoPerfil(String nomeOuEmail, HttpServletResponse response){
+	@RequestMapping("atualizarPerfil")
+	public String atualizarPerfil(Perfil perfil){
 		try{
-			byte[] foto = perfilDao.pegarFoto(nomeOuEmail);
-			if(foto != null)
-			{
-				response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-				response.getOutputStream().write(foto);
-				response.getOutputStream().close();
-			}
+			mensagem = perfilDao.atualizar(perfil);
+			return "redirect:home";
 		}
 		catch(Exception e){
-			Logs.warn("[ConsoleController]::mostrarFotoDoPerfil: Erro tentando pegar foto do perfil. Exception:");
 			e.printStackTrace();
+			return "erro/banco";
 		}
 	}
 	

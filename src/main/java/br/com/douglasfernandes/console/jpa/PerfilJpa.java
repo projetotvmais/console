@@ -108,26 +108,6 @@ public class PerfilJpa implements PerfilDao{
 			return Mensagem.getWarning("Erro no servidor.<br>Por favor, contate o suporte técnico.");
 		}
 	}
-
-	@Override
-	public byte[] pegarFoto(String nomeOuEmail) {
-		try{
-			Perfil perfil = getPerfilPorNomeOuEmail(nomeOuEmail);
-			if(perfil != null && perfil.getFoto() != null && perfil.getFoto().length > 1){
-				Logs.info("[PerfilJpa]::pegarFoto :: Foto do perfil: "+perfil.getNome());
-				return perfil.getFoto();
-			}
-			else{
-				Logs.warn("[PerfilJpa]::pegarFoto :: foto nao disponivel.");
-				return null;
-			}
-		}
-		catch(Exception e){
-			Logs.warn("[PerfilJpa]::pegarFoto :: Erro ao tentar pegar foto do perfil, Exception:");
-			e.printStackTrace();
-			return null;
-		}
-	}
 	
 	@SuppressWarnings("unchecked")
 	private boolean temPerfilCadastrado(){
@@ -157,15 +137,8 @@ public class PerfilJpa implements PerfilDao{
 				Perfil perfil = new Perfil();
 				perfil.setNome("Administrador");
 				perfil.setSenha("adm");
-				perfil.setDefaultFoto();
 				perfil.setEmail("douglasf.filho@gmail.com");
 				perfil.setTelefone("(81)9 9672-9491");
-				perfil.setEndereco("Rua Argina Aguiar");
-				perfil.setNumero("206");
-				perfil.setBairro("Tejipió");
-				perfil.setCidade("Recife");
-				perfil.setEstado("PE");
-				perfil.setCep("50.920-600");
 				
 				manager.persist(perfil);
 				Logs.info("[PerfilJpa]::primeiroAcesso :: Cadastrado perfil com exito.");
@@ -207,6 +180,21 @@ public class PerfilJpa implements PerfilDao{
 			Logs.warn("[PerfilJpa]::esqueciMinhaSenha :: Erro ao tentar enviar senha por e-mail, Exception:");
 			e.printStackTrace();
 			return Mensagem.getDanger("Erro no servidor.<br>Por favor, entre em contato com o suporte técnico.");
+		}
+	}
+
+	@Override
+	public Perfil lerPerfil() {
+		try{
+			Query query = manager.createQuery("select p from Perfil as p");
+			Perfil perfil = (Perfil)query.getSingleResult();
+			Logs.info("[PerfilJpa]::lerPerfil :: Perfil encontrado: "+perfil.getNome());
+			return perfil;
+		}
+		catch(Exception e){
+			Logs.warn("[PerfilJpa]::lerPerfil :: Erro ao tentar pegar informacoes de perfil, Exception:");
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
