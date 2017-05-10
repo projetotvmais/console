@@ -6,7 +6,8 @@
 		
 		<div class="container-fluid">
 			<div class="row">
-				<a id="mudar-login" href="#" class="float-right">Mudar dados de login</a>
+				<a id="mudar-login" href="#" class="float-right">Mudar dados de login</a><br>
+				<a href="logout" class="float-right">Logout</a>
 
 				<div class="col-xs-8 col-xs-offset-2 text-center">
 					${mensagem}
@@ -34,7 +35,7 @@
 				<input type="text" name="telefone" class="form-control" placeholder="Telefone" value="${perfil.telefone}">
 				
 				<hr>
-				<button class="btn-block btn-white form-control info" type="submit">Cadastrar</button>
+				<button class="btn-block btn-white form-control info" type="submit">Atualizar</button>
 			</form>
 		</div>
 	

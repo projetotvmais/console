@@ -133,8 +133,8 @@ function addEventListeners(){
         // Abre a form
         $("#form-mudar-login").dialog({
             top: 60,
-            height: 520,
-            width: 600,
+            height: 350,
+            width: 350,
             modal: true,
             show: {
                 effect: "fade",

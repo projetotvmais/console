@@ -33,7 +33,7 @@ public class CanalJpa implements CanalDao{
 						canal.setDefaultLogo();
 					if(canal.getUrl() != null && !canal.getUrl().equals("")){
 						teste = pegarPorUrl(canal.getUrl());
-						if(teste != null){
+						if(teste == null){
 							canal.setFuncionando(true);
 							manager.persist(canal);
 							Logs.info("[CanalJpa]::cadastrar: Canal registrado com exito.");
