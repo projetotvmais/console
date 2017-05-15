@@ -17,6 +17,7 @@
 	<class>br.com.douglasfernandes.console.model.Perfil</class>
 	<class>br.com.douglasfernandes.console.model.Usuario</class>
 	<class>br.com.douglasfernandes.console.model.Classificacao</class>
+	<class>br.com.douglasfernandes.console.model.Token</class>
    
    <properties>
   	<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

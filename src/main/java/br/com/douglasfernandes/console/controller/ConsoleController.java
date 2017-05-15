@@ -1,5 +1,6 @@
 package br.com.douglasfernandes.console.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,14 +15,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.douglasfernandes.console.controller.parsers.CanalParser;
+import br.com.douglasfernandes.console.controller.utils.FMT;
 import br.com.douglasfernandes.console.controller.utils.Mensagem;
 import br.com.douglasfernandes.console.dao.CanalDao;
 import br.com.douglasfernandes.console.dao.ClassificacaoDao;
 import br.com.douglasfernandes.console.dao.PerfilDao;
+import br.com.douglasfernandes.console.dao.TokenDao;
 import br.com.douglasfernandes.console.logger.Logs;
 import br.com.douglasfernandes.console.model.Canal;
 import br.com.douglasfernandes.console.model.Classificacao;
 import br.com.douglasfernandes.console.model.Perfil;
+import br.com.douglasfernandes.console.model.Token;
 
 @Transactional
 @Controller
@@ -38,6 +42,10 @@ public class ConsoleController {
 	@Qualifier("classificacaoJpa")
 	@Autowired
 	private ClassificacaoDao classificacaoDao;
+	
+	@Qualifier("tokenJpa")
+	@Autowired
+	private TokenDao tokenDao;
 	
 	String mensagem = "";
 	
@@ -236,12 +244,52 @@ public class ConsoleController {
 		}
 	}
 	
+	/**
+	 * Usado para testar um canal especifico na tela de testes
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("testarCanal")
 	public String testarCanal(long id, Model model){
 		try{
 			Canal canal = canalDao.pegarPorId(id);
 			model.addAttribute("canal",canal);
 			return "canais/teste";
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	/**
+	 * Usado para testar um canal especifico na tela de testes
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("testeDeCanal")
+	public String testeDeCanal(long id, String token, Model model){
+		try{
+			Token tokenClient = tokenDao.validar(token);
+			if(token != null){
+				Calendar agora = FMT.getAgora();
+				if(agora.compareTo(tokenClient.getValidade()) > 0){
+					mensagem = Mensagem.getWarning("token inválido.");
+					tokenDao.remover(tokenClient.getId());
+					return "redirect:login";
+				}
+				else{
+					Canal canal = canalDao.pegarPorId(id);
+					model.addAttribute("canal",canal);
+					return "canais/teste_cliente";
+				}
+			}
+			else{
+				mensagem = Mensagem.getWarning("token inválido.");
+				return "redirect:login";
+			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
