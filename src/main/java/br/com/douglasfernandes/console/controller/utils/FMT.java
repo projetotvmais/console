@@ -17,6 +17,7 @@ public class FMT
 		YMD("yyyy-MM-dd"),
 		DMY("dd/MM/yyyy"),
 		DMYHM("dd/MM/yyyy HH:mm"),
+		DMYTHM("yyyy-MM-dd HH:mm"),
 		EDMY("EEEE, dd 'de' MMMM 'de' yyyy");
 		
 		private String formato;
@@ -40,6 +41,7 @@ public class FMT
 	{
 		try
 		{
+			data = data.replace("T", " ");
 			SimpleDateFormat fmt = new SimpleDateFormat(format.toString());
 			Calendar date = Calendar.getInstance();
 			date.setTime(fmt.parse(data));
@@ -198,5 +200,4 @@ public class FMT
 			return valor;
 		}
 	}
-	
 }

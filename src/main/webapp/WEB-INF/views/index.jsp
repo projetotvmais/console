@@ -15,9 +15,32 @@
 		    	
 		  	</div>
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<div id="main-content" class="row">
-						
+				<div class="col-xs-8 col-xs-offset-2">
+					<div class="table">
+						<table class="table tabela-tokens">
+							<tbody class="text-center">
+								<tr class="table-tr-header text -center">
+									<th class="text-center" colspan="2">Tokens Cadastrados</th>
+									<th class="text-center"><a href="#" onclick="cadastrarToken()">Cadastrar Token</a></th>
+								</tr>
+								<tr class="table-tr text -center">
+									<th class="table-th text-center">Token</th>
+									<th class="table-th text-center">URL</th>
+									<th class="table-th text-center">Ações</th>
+								</tr>
+								<c:forEach var="token" items="${tokens}">
+									<tr role="row" id="${token.id}" class="table-tr text-center">
+										<td role="gridcell" class="table-td text-center">${token.nome}</td>
+										<td role="gridcell" class="table-td text-center">
+											<a href="testeDeCanal?id=${token.canal.id}&token=${token.nome}">https://tvmaisconsole.herokuapp.com/testeDeCanal?id=${token.canal.id}&token=${token.nome}</a>
+										</td>
+										<td role="gridcell" class="table-td text-center">
+											<a href="removerToken?id=${token.id}">Remover</a><br>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -36,6 +59,20 @@
 				
 				<hr>
 				<button class="btn-block btn-white form-control info" type="submit">Atualizar</button>
+			</form>
+		</div>
+		<div id="form-cadastrar-token" class="escondido" title="Cadastrar novo token">
+			<form method="post" action="cadastrarToken" class="form-group" enctype="multipart/form-data">
+				Canal:
+				<select name="canal" class="form-control" required>
+					<c:forEach var="itemCanal" items="${listaCanais}">
+						<option value="${itemCanal.id}">${itemCanal.nome}</option>
+					</c:forEach>
+				</select>
+				Validade:
+				<input type="datetime-local" name="validade" class="form-control"required>
+				<hr>
+				<button class="btn-block btn-white form-control info" type="submit">Cadastrar</button>
 			</form>
 		</div>
 	

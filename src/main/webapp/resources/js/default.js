@@ -55,6 +55,30 @@ function vercanal(canal){
     },500);
 }
 
+function cadastrarToken(){
+    // Abre a form
+    $("#form-cadastrar-token").dialog({
+        top: 60,
+        height: 260,
+        width: 400,
+        modal: true,
+        show: {
+            effect: "fade",
+            duration: 500
+        },
+        hide: {
+            effect: "fade",
+            duration: 500
+        }
+    });
+
+    // Mostra o conteudo da form
+    $("#form-cadastrar-token").removeClass("escondido");
+    setTimeout(function(){
+        $(".ui-dialog").addClass("top-60");
+    },500);
+}
+
 function addEventListeners(){
     // Adiciona função de mostrar ou esconder menu no click do botão
     $("#navbar-toggler").click(function(){

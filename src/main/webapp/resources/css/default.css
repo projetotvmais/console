@@ -15,7 +15,8 @@ html{
 
 .styled-body{
 	background-image: url(../images/main_backimage_large.png);
-    background-repeat: no-repeat;
+    background-size: cover;
+    background-repeat: repeat-x;
     height: 100% !important;
 	width: 100% !important;
 }
@@ -176,6 +177,36 @@ html{
 
 .quebrado{
 	background-color: #f59f9f !important;
+}
+
+.tabela-tokens{
+	background: white;
+	text-align: center !important;
+	box-shadow: 7px 11px 20px 0px black;
+	margin-top: 5em;
+}
+
+.table-tr{
+	background-color: aliceblue;
+}
+
+.table-th{
+	background-color: powderblue;
+}
+
+.table-tr:hover{
+	background-color: beige !important;
+	box-shadow: 7px 11px 20px 0px black;
+}
+
+.table-tr-header{
+	background-color: black;
+	color: white;
+}
+
+.table-td{
+	background-color: transparent;
+	border: solid 1px powderblue;
 }
 
 .cover-100{

@@ -67,28 +67,6 @@ public class TokenJpa implements TokenDao{
 			return null;
 		}
 	}
-	
-	@Override
-	public String invalidar(long id) {
-		try{
-			Token token = pegarPorId(id);
-			if(token != null){
-				token.setValidade(FMT.getCalendarFromString("01/01/1990", DateFormat.DMY));
-				manager.merge(token);
-				Logs.info("[TokenJpa]::invalidar::Token invalidado: "+token.toString());
-				return Mensagem.getSuccess("Token invalidado com êxito.");
-			}
-			else{
-				Logs.warn("[TokenJpa]::invalidar::Token nulo.");
-				return Mensagem.getWarning("Não é possível invalidar um token nulo.<br>Contate o suporte técnico.");
-			}
-		}
-		catch(Exception e){
-			Logs.warn("[TokenJpa]::invalidar::Impossivel invalidar este token. Exception:");
-			e.printStackTrace();
-			return Mensagem.getDanger("Houve um erro ao tentar invalidar este token.<br>Contate o suporte técnico.");
-		}
-	}
 
 	@Override
 	public String remover(long id) {

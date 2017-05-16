@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.douglasfernandes.console.controller.parsers.CanalParser;
+import br.com.douglasfernandes.console.controller.parsers.TokenParser;
 import br.com.douglasfernandes.console.controller.utils.FMT;
 import br.com.douglasfernandes.console.controller.utils.Mensagem;
 import br.com.douglasfernandes.console.dao.CanalDao;
@@ -54,6 +55,12 @@ public class ConsoleController {
 	@RequestMapping(value = {"home","/"})
 	public String home(Model model){
 		try{
+			List<Token> tokens = tokenDao.listar();
+			model.addAttribute("tokens", tokens);
+			
+			List<Canal> canais = canalDao.listarPorNome("");
+			model.addAttribute("listaCanais", canais);
+			
 			Perfil perfil = perfilDao.lerPerfil();
 			model.addAttribute("perfil",perfil);
 			
@@ -329,4 +336,32 @@ public class ConsoleController {
 		}
 	}
 	
+	@RequestMapping("cadastrarToken")
+	public String cadastrarToken(TokenParser tokenParser){
+		try{
+			Logs.info("[ConsoleController]::cadastrarToken:tokenParser: "+tokenParser.toString());
+			Token token = tokenParser.toToken(canalDao);
+			mensagem = tokenDao.cadastrar(token);
+			return "redirect:home";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::cadastrarToken: Erro tentando cadastrar token. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	@RequestMapping("removerToken")
+	public String cadastrarToken(long id){
+		try{
+			Logs.info("[ConsoleController]::removerToken:tokenId: "+id);
+			mensagem = tokenDao.remover(id);
+			return "redirect:home";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::removerToken: Erro tentando remover token. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
 }
