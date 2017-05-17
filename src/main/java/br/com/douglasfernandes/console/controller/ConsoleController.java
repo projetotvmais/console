@@ -277,7 +277,7 @@ public class ConsoleController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("testeDeCanal")//TODO adicionar aplicacao de backup do bd
+	@RequestMapping("testeDeCanal")
 	public String testeDeCanal(long id, String token, Model model){
 		try{
 			Token tokenClient = tokenDao.validar(token);
@@ -289,7 +289,7 @@ public class ConsoleController {
 				Logs.info("[ConsoleController]::testeDeCanal::TimeZone: "+timezone);
 				Calendar validade = tokenClient.getValidade();
 				Logs.info("[ConsoleController]::testeDeCanal:: Agora:"+FMT.getStringFromCalendar(agora, DateFormat.DMYHM)+" | Validade:"+FMT.getStringFromCalendar(validade, DateFormat.DMYHM));
-//				Logs logar agora e data de validade pra saber o que esta havendo e tbm fazer rotina de backup do banco de dados.
+				
 				if(agora.after(validade)){
 					mensagem = Mensagem.getWarning("token inválido.");
 					tokenDao.remover(tokenClient.getId());
