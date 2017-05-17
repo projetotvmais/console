@@ -96,11 +96,11 @@ public class TokenJpa implements TokenDao{
 			@SuppressWarnings("unchecked")
 			List<Token> lista = query.getResultList();
 			if(lista != null && lista.size() > 0){
-				Logs.warn("[TokenJpa]::listar::Lista obtida com "+lista.size()+" itens.");
+				Logs.info("[TokenJpa]::listar::Lista obtida com "+lista.size()+" itens.");
 				return lista;
 			}
 			else{
-				Logs.warn("[TokenJpa]::listar::Lista vazia.");
+				Logs.info("[TokenJpa]::listar::Lista vazia.");
 				return null;
 			}
 		}

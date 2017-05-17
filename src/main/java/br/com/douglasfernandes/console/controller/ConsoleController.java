@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.com.douglasfernandes.console.controller.parsers.CanalParser;
 import br.com.douglasfernandes.console.controller.parsers.TokenParser;
 import br.com.douglasfernandes.console.controller.utils.FMT;
+import br.com.douglasfernandes.console.controller.utils.FMT.DateFormat;
 import br.com.douglasfernandes.console.controller.utils.Mensagem;
 import br.com.douglasfernandes.console.dao.CanalDao;
 import br.com.douglasfernandes.console.dao.ClassificacaoDao;
@@ -282,7 +283,10 @@ public class ConsoleController {
 			Token tokenClient = tokenDao.validar(token);
 			if(token != null){
 				Calendar agora = FMT.getAgora();
-				if(agora.compareTo(tokenClient.getValidade()) > 0){
+				Calendar validade = tokenClient.getValidade();
+				Logs.info("[ConsoleController]::testeDeCanal:: Agora:"+FMT.getStringFromCalendar(agora, DateFormat.DMYHM)+" | Validade:"+FMT.getStringFromCalendar(validade, DateFormat.DMYHM));
+//				Logs logar agora e data de validade pra saber o que esta havendo e tbm fazer rotina de backup do banco de dados.
+				if(agora.after(validade)){
 					mensagem = Mensagem.getWarning("token inválido.");
 					tokenDao.remover(tokenClient.getId());
 					return "redirect:login";
