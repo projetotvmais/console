@@ -344,6 +344,8 @@ public class ConsoleController {
 		}
 	}
 	
+//	XXX Gerenciar tokens de acesso a canal para demonstração
+	
 	@RequestMapping("cadastrarToken")
 	public String cadastrarToken(TokenParser tokenParser){
 		try{
@@ -360,7 +362,7 @@ public class ConsoleController {
 	}
 	
 	@RequestMapping("removerToken")
-	public String cadastrarToken(long id){
+	public String removerToken(long id){
 		try{
 			Logs.info("[ConsoleController]::removerToken:tokenId: "+id);
 			mensagem = tokenDao.remover(id);
