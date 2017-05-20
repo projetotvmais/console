@@ -34,7 +34,6 @@ function showNavBar(){
 function vercanal(canal){
     // Abre a form
     $("#form-atualizar-canal"+canal).dialog({
-        top: 60,
         height: 520,
         width: 600,
         modal: true,
@@ -58,7 +57,6 @@ function vercanal(canal){
 function cadastrarToken(){
     // Abre a form
     $("#form-cadastrar-token").dialog({
-        top: 60,
         height: 260,
         width: 400,
         modal: true,
@@ -74,6 +72,88 @@ function cadastrarToken(){
 
     // Mostra o conteudo da form
     $("#form-cadastrar-token").removeClass("escondido");
+    setTimeout(function(){
+        $(".ui-dialog").addClass("top-60");
+    },500);
+}
+
+function mostrarTelaDeCadastroDePacote(){
+    // Abre a form
+    $("#form-cadastrar-pacote").dialog({
+        height: 380,
+        width: 400,
+        modal: true,
+        show: {
+            effect: "fade",
+            duration: 500
+        },
+        hide: {
+            effect: "fade",
+            duration: 500
+        }
+    });
+
+    // Mostra o conteudo da form
+    $("#form-cadastrar-pacote").removeClass("escondido");
+    setTimeout(function(){
+        $(".ui-dialog").addClass("top-60");
+    },500);
+}
+
+function verpacote(id){
+    // Abre a form
+    $("#form-atualizar-pacote"+id).dialog({
+        height: 380,
+        width: 400,
+        modal: true,
+        show: {
+            effect: "fade",
+            duration: 500
+        },
+        hide: {
+            effect: "fade",
+            duration: 500
+        }
+    });
+
+    // Mostra o conteudo da form
+    $("#form-atualizar-pacote"+id).removeClass("escondido");
+    setTimeout(function(){
+        $(".ui-dialog").addClass("top-60");
+    },500);
+}
+
+function mostraTelaDeSelecaoDeCanais(campo,input){
+    // Abre a form
+    $("#seletor-de-canais-dialog").dialog({
+        height: 400,
+        width: 400,
+        modal: true,
+        show: {
+            effect: "fade",
+            duration: 500
+        },
+        hide: {
+            effect: "fade",
+            duration: 500
+        },
+        buttons:{
+            Ok:function(){
+                var canaisSelecionados = [];
+                var items = $(document).find(".seletor_de_canais");
+                for(var i = 0;i < items.length;i++){
+                    if(items[i].value == "true")
+                        canaisSelecionados.push(items[i].id);
+                }
+                $("#"+campo).text(""+canaisSelecionados.length);
+                $("#"+input).val(canaisSelecionados);
+                $("#seletor-de-canais-dialog").dialog("close");
+            }
+        }
+    });
+
+    // Mostra o conteudo da form
+    $("#seletor-de-canais-dialog").removeClass("escondido");
     setTimeout(function(){
         $(".ui-dialog").addClass("top-60");
     },500);

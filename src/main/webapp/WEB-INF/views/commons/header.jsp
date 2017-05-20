@@ -47,6 +47,8 @@
 		<script type="text/javascript" src='<c:url value="/resources/js/bootstrap.js"/>'></script>
 		<!-- Script padrão do projeto --> 
 		<script type="text/javascript" src='<c:url value="/resources/js/default.js"/>'></script>
+		<!-- Script de listener em input do tipo currency --> 
+		<script type="text/javascript" src='<c:url value="/resources/js/currency.js"/>'></script>
 		
 		<!-- HTML5 shim e Respond.js para suporte a elementos e media queries no IE8 -->
 		<!-- WARNING: Respond.js não funciona se tentar visualizar a página via file:// -->

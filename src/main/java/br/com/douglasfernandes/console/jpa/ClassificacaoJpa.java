@@ -159,6 +159,22 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 			Classificacao serie = new Classificacao();
 			serie.setNome("Série");
 			cadastrar(serie);
+			
+			Classificacao filme = new Classificacao();
+			filme.setNome("Filme");
+			cadastrar(filme);
+			
+			Classificacao cultura = new Classificacao();
+			cultura.setNome("Cultura");
+			cadastrar(cultura);
+			
+			Classificacao noticias = new Classificacao();
+			noticias.setNome("Noticias");
+			cadastrar(noticias);
+			
+			Classificacao aberto = new Classificacao();
+			aberto.setNome("Aberto");
+			cadastrar(aberto);
 		}
 		
 	}	

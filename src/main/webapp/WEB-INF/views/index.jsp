@@ -49,13 +49,13 @@
 			<form method="post" action="atualizarPerfil" class="form-group" enctype="multipart/form-data">
 				<input type="hidden" name="id" value="${perfil.id}">
 				Nome: 
-				<input type="text" name="nome" class="form-control" placeholder="Nome" value="${perfil.nome}">
+				<input type="text" name="nome" class="form-control" placeholder="Nome" value="${perfil.nome}" required>
 				Senha:
-				<input type="password" name="senha" class="form-control" placeholder="Senha" value="${perfil.senha}">
+				<input type="password" name="senha" class="form-control" placeholder="Senha" value="${perfil.senha}" required>
 				E-mail:
-				<input type="text" name="email" class="form-control" placeholder="E-mail" value="${perfil.email}">
+				<input type="text" name="email" class="form-control" placeholder="E-mail" value="${perfil.email}" required>
 				Telefone:
-				<input type="text" name="telefone" class="form-control" placeholder="Telefone" value="${perfil.telefone}">
+				<input type="text" name="telefone" class="form-control" placeholder="Telefone" value="${perfil.telefone}" required>
 				
 				<hr>
 				<button class="btn-block btn-white form-control info" type="submit">Atualizar</button>

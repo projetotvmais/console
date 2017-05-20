@@ -150,6 +150,37 @@ html{
     height: 165px;
 }
 
+.pacote-panel-body {
+    padding: 0px !important;
+    width: 100%;
+}
+
+.pacote-row {
+    margin-right: 38px !important;
+    margin-left: 0px !important;
+    float: left !important;
+	margin-top: 45px !important;
+	text-align: center !important;
+	vertical-align: middle;
+}
+
+.pacote{
+	width: 250px !important;
+	height: 250px !important;
+	box-shadow: 5px 5px 25px 10px black !important;
+}
+
+.nome-do-pacote{
+	text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.imagem-do-pacote {
+    width: 248px;
+    height: 168px;
+}
+
 .escondido{
 	display: none !important;
 }

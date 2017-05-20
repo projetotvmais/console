@@ -374,4 +374,8 @@ public class ConsoleController {
 			return "erro/banco";
 		}
 	}
+	
+//	XXX Mostrar tela de gerenciamento de pacotes.
+	
+	
 }
