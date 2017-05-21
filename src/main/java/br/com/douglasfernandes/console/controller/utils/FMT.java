@@ -123,8 +123,8 @@ public class FMT
 	 */
 	public static Calendar getAgora() {
 		try {
-			Calendar hoje = Calendar.getInstance();
-			hoje.setTimeInMillis(System.currentTimeMillis());
+			Calendar hoje = Calendar.getInstance(new Locale("pt","BR"));
+//			hoje.setTimeInMillis(System.currentTimeMillis());
 			return hoje;
 		} catch(Exception e) {
 			e.printStackTrace();
