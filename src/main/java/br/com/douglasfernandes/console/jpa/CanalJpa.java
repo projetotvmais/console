@@ -79,7 +79,7 @@ public class CanalJpa implements CanalDao{
 					}
 					if(canal.getUrl() != null && !canal.getUrl().equals("")){
 						teste = pegarPorUrl(canal.getUrl());
-						if(teste != null){
+						if(teste == null){
 							manager.merge(canal);
 							Logs.info("[CanalJpa]::atualizar: Canal atualizado com exito.");
 							return Mensagem.getSuccess("Canal atualizado com êxito.");
