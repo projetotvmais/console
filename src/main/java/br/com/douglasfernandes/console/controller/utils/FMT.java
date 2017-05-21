@@ -5,6 +5,7 @@ package br.com.douglasfernandes.console.controller.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Ajuda a formatar e parsear datas
@@ -190,13 +191,14 @@ public class FMT
 	}
 
 	public static String formatAsMoney(double value){
+		Locale locale = new Locale("en","US");
 		try{
-			String valor = String.format("%1$.2f", value);
+			String valor = String.format(locale,"%1$.2f", value);
 			return valor;
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			String valor = String.format("%1$.2f", 0.0);
+			String valor = String.format(locale,"%1$.2f", 0.0);
 			return valor;
 		}
 	}

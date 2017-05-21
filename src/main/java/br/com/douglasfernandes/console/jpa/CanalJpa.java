@@ -71,7 +71,8 @@ public class CanalJpa implements CanalDao{
 		try{
 			if(canal.getNome() != null && !canal.getNome().equals("")){
 				Canal teste = pegarPorNome(canal.getNome());
-				if(teste == null){
+				
+				if(teste == null || teste.getId() == canal.getId()){
 					if(canal.getLogo() == null || canal.getLogo().length < 1){
 						byte[] logoOriginal = pegarLogoDoCanal(canal.getId());
 						canal.setLogo(logoOriginal);

@@ -76,7 +76,7 @@ public class Pacote {
 	}
 	@Override
 	public String toString() {
-		return "Pacote [id=" + id + ", nome=" + nome + ", logo=" + logo.length + " bytes" + ", valor=" + valor
+		return "Pacote [id=" + id + ", nome=" + nome + ", logo=" + logo.length + " bytes" + ", valor=" + FMT.formatAsMoney(valor)
 				+ ", canais=" + canais + "]";
 	}
 }

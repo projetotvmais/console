@@ -15,17 +15,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.douglasfernandes.console.controller.parsers.CanalParser;
+import br.com.douglasfernandes.console.controller.parsers.PacoteParser;
 import br.com.douglasfernandes.console.controller.parsers.TokenParser;
 import br.com.douglasfernandes.console.controller.utils.FMT;
 import br.com.douglasfernandes.console.controller.utils.FMT.DateFormat;
 import br.com.douglasfernandes.console.controller.utils.Mensagem;
 import br.com.douglasfernandes.console.dao.CanalDao;
 import br.com.douglasfernandes.console.dao.ClassificacaoDao;
+import br.com.douglasfernandes.console.dao.PacoteDao;
 import br.com.douglasfernandes.console.dao.PerfilDao;
 import br.com.douglasfernandes.console.dao.TokenDao;
 import br.com.douglasfernandes.console.logger.Logs;
 import br.com.douglasfernandes.console.model.Canal;
 import br.com.douglasfernandes.console.model.Classificacao;
+import br.com.douglasfernandes.console.model.Pacote;
 import br.com.douglasfernandes.console.model.Perfil;
 import br.com.douglasfernandes.console.model.Token;
 
@@ -48,6 +51,10 @@ public class ConsoleController {
 	@Qualifier("tokenJpa")
 	@Autowired
 	private TokenDao tokenDao;
+	
+	@Qualifier("pacoteJpa")
+	@Autowired
+	private PacoteDao pacoteDao;
 	
 	String mensagem = "";
 	
@@ -346,6 +353,11 @@ public class ConsoleController {
 	
 //	XXX Gerenciar tokens de acesso a canal para demonstração
 	
+	/**
+	 * Cadastrar um token para demo
+	 * @param tokenParser
+	 * @return
+	 */
 	@RequestMapping("cadastrarToken")
 	public String cadastrarToken(TokenParser tokenParser){
 		try{
@@ -361,6 +373,11 @@ public class ConsoleController {
 		}
 	}
 	
+	/**
+	 * Remover um token criado
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("removerToken")
 	public String removerToken(long id){
 		try{
@@ -377,5 +394,115 @@ public class ConsoleController {
 	
 //	XXX Mostrar tela de gerenciamento de pacotes.
 	
+	/**
+	 * Abrir tela de gerenciamento de pacotes
+	 * @param pesquisa
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("pacotes")
+	public String pacotes(String pesquisa, Model model){
+		try{
+			model.addAttribute("mensagem",mensagem);
+			mensagem = "";
+			
+			if(pesquisa == null)
+				pesquisa = "";
+			model.addAttribute("pesquisa",pesquisa);
+			
+			List<Pacote> pacotes = pacoteDao.listar(pesquisa);
+			Logs.info("[ConsoleController]::pacotes::Lista de pacotes:");
+			if(pacotes != null && pacotes.size() > 0){
+				for(Pacote pac : pacotes){
+					Logs.info("-----------> "+pac.toString());
+				}
+			}
+			model.addAttribute("pacotes",pacotes);
+			
+			List<Canal> canais = canalDao.listarPorNome("");
+			model.addAttribute("canais", canais);
+			
+			return "pacotes/pacotes";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::pacotes: Erro tentando listar pacotes. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	@RequestMapping("cadastrarPacote")
+	public String cadastrarPacote(PacoteParser parser, HttpServletRequest request){
+		try{
+			Logs.info("[ConsoleController]::cadastrarPacote: Request: "+ parser.toString());
+			
+			Pacote pacote = parser.toPacote();
+			mensagem = pacoteDao.cadastrar(pacote);
+			
+			return "redirect:pacotes";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::cadastrarPacote: Erro tentanto cadastrar pacote. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	@RequestMapping("atualizarPacote")
+	public String atualizarPacote(PacoteParser parser, HttpServletRequest request){
+		try{
+			Logs.info("[ConsoleController]::atualizarPacote: Request: "+ parser.toString());
+			
+			Pacote cadastrado = pacoteDao.pegarPacotePorId(parser.getId());
+			Pacote pacote = parser.toPacote();
+			
+			if(parser.getLogo() == null || parser.getLogo().getSize() < 10)
+				pacote.setLogo(cadastrado.getLogo());
+			
+			mensagem = pacoteDao.atualizar(pacote);
+			
+			return "redirect:pacotes";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::atualizarPacote: Erro tentanto atualizar pacote. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	/**
+	 * Remover um pacote que está fora de uso.
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("removerPacote")
+	public String pacotes(long id){
+		try{
+			//TODO Verificar se há algum cliente usando este pacote antes de tentar remove-lo
+			mensagem = pacoteDao.remover(id);
+			return "redirect:pacotes";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::removerPacote: Erro tentando remover pacote. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
+		}
+	}
+	
+	/**
+	 * Carrega a logo do pacote na response (utilizado no atributo src de uma tag img)
+	 */
+	@RequestMapping("mostrarImagemLogoDoPacote")
+	public void mostrarImagemLogoDoPacote(long id, HttpServletResponse response) throws Exception
+	{
+		byte[] logo = pacoteDao.pegarLogoDoPacote(id);
+		
+		if(logo != null)
+		{
+			response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+			response.getOutputStream().write(logo);
+			response.getOutputStream().close();
+		}
+	}
 	
 }

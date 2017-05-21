@@ -123,9 +123,9 @@ function verpacote(id){
     },500);
 }
 
-function mostraTelaDeSelecaoDeCanais(campo,input){
+function mostraTelaDeSelecaoDeCanais(pacote,campo,input){
     // Abre a form
-    $("#seletor-de-canais-dialog").dialog({
+    $("#seletor-de-canais-dialog"+pacote).dialog({
         height: 400,
         width: 400,
         modal: true,
@@ -147,18 +147,50 @@ function mostraTelaDeSelecaoDeCanais(campo,input){
                 }
                 $("#"+campo).text(""+canaisSelecionados.length);
                 $("#"+input).val(canaisSelecionados);
-                $("#seletor-de-canais-dialog").dialog("close");
+                $("#seletor-de-canais-dialog"+pacote).addClass("escondido");
+                $("#seletor-de-canais-dialog"+pacote).dialog("close");
             }
         }
     });
 
     // Mostra o conteudo da form
-    $("#seletor-de-canais-dialog").removeClass("escondido");
+    $("#seletor-de-canais-dialog"+pacote).removeClass("escondido");
     setTimeout(function(){
         $(".ui-dialog").addClass("top-60");
     },500);
 }
 
+function desejaRemoverPacote(id){
+    // Abre a form
+   $("#remover_pacote_dialog").dialog({
+       height: 150,
+       width: 400,
+       modal: true,
+       show: {
+           effect: "fade",
+           duration: 500
+       },
+       hide: {
+           effect: "fade",
+           duration: 500
+       },
+       buttons:{
+           Ok:function(){
+               $("#remover_pacote_input").val(id);
+               $("#remover_pacote_form").submit();
+               $("#remover_pacote_dialog").addClass("escondido");
+               $("#remover_pacote_dialog").dialog("close");
+           }
+       }
+   });
+
+   // Mostra o conteudo da form
+   $("#remover_pacote_dialog").removeClass("escondido");
+   setTimeout(function(){
+       $(".ui-dialog").addClass("top-60");
+   },500);
+}
+   
 function addEventListeners(){
     // Adiciona função de mostrar ou esconder menu no click do botão
     $("#navbar-toggler").click(function(){

@@ -61,7 +61,6 @@ $(function(){
     var currencyFields = $(".currency");
     var i = 0;
     for(i = 0;i < currencyFields.length;i++){
-        $("#"+currencyFields[i].id).val("0.00");
         Currency.addListener(currencyFields[i]);
     }
 });
