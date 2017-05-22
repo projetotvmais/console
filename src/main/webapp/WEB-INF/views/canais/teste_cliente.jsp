@@ -10,10 +10,12 @@
 				<script src="//content.jwplatform.com/libraries/meaTg5dN.js"></script>
 				<div id="video_container" class="cover-100"></div>
 				<script type="text/javaScript">
+					var h = window.screen.availHeight - 110;
+					var w = window.screen.availWidth - 20;
 					jwplayer("video_container").setup({
 						file: "${canal.url}",
-						width: "100%",
-						height: "100%",
+						width: w,
+						height: h,
 						autostart: "true",
 						fallback: "true",
 						type: "hls",
