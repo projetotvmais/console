@@ -7,7 +7,12 @@
 		<div class="container-fluid">
 			<div class="row">
 				<a id="cadastrar-canal" href="#" class="float-right">Cadastrar canal</a><br>
-				<a id="btn-home" href="home" class="float-right">Home</a>
+				<a id="btn-home" href="home" class="float-right">Home</a><br>
+				<select id="selecionar_tipo_canal" class="float-right form-control" style="width:150px;" onchange="selecionarCanaisPorStatus(this)">
+                    <option value="tudo">Mostrando tudo</option>
+                    <option value="quebrados">Mostrando só os quebrados</option>
+                    <option value="funcionando">Mostrando só os funcionais</option>
+                </select>
 
 				<div class="col-xs-8 col-xs-offset-2 text-center">
 					${mensagem}
@@ -15,10 +20,18 @@
 		    	
 		  	</div>
 			<div class="row div-pesquisa">
-				<div class="col-xs-8 col-xs-offset-2 text-center">
-					<form method="post" action="pesquisarCanal">
-						<input id="pesquisa" type="text" class="form-control text-center" name="pesquisa" value="${pesquisa}">
-						<button class="btn-block btn-white form-control info" type="submit">Filtrar</button>
+				<div class="col-xs-8 col-xs-offset-2">
+					<form method="post" class="form-inline" action="pesquisarCanal">
+                        <input id="pesquisa" type="text" class="form-control" name="pesquisa" placeholder="Pesquise por nome" style="width:85%;" value="${pesquisa}">
+                        <button class="btn-block btn-white form-control info" type="submit" class="float-right" style="width:100px;">Filtrar</button>
+					</form>
+                    <form class="form-inline">
+                        <select id="selecionar_canais_por_classificacao" class="form-control" style="width:100%;" onchange="selecionarCanaisPorClassificacao(this)">
+                            <option value="0">Selecionar por classificação</option>
+                            <c:forEach var="classificacao" items="${classificacoes}">
+                            	<option value="${classificacao.nome}">${classificacao.nome}</option>
+                            </c:forEach>
+                        </select>
 					</form>
 				</div>
 			</div>
@@ -33,6 +46,7 @@
 							<c:if test="${canal.funcionando eq false}">
 								<div id="canal${canal.id}" class="panel canal quebrado">
 							</c:if>
+								<input type="hidden" class="classificacao-canal" value="${canal.classificacao.nome}">
 								<div class="panel-heading panel-default center-block escondido">
 									<p class="nome-do-canal">${canal.nome}</p>
 								</div>

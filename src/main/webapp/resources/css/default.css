@@ -54,11 +54,12 @@ html{
     margin-left: 5px !important;
     margin-right: 0px !important;
     margin-bottom: 0px !important;
-    background-color: transparent !important;
+    background-color: white !important;
     background-image: none !important;
     border: 1px solid transparent  !important;
     border-radius: 4px !important;
     z-index: 1 !important;
+    visibility: visible !important;
 }
 
 .icon-bar {
@@ -91,6 +92,12 @@ html{
 	width: 55px;
 	height: 55px;
 	border-radius:30px;
+}
+
+#home.menu-item{
+	background-image: none;
+	height: 45px !important;
+    padding-top: 7% !important;
 }
 
 #canais.menu-item{
@@ -146,8 +153,8 @@ html{
 }
 
 .imagem-do-canal {
-    width: 250px;
-    height: 165px;
+    width: 248px;
+    height: 168px;
 }
 
 .pacote-panel-body {

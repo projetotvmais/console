@@ -25,12 +25,14 @@ import br.com.douglasfernandes.console.dao.ClassificacaoDao;
 import br.com.douglasfernandes.console.dao.PacoteDao;
 import br.com.douglasfernandes.console.dao.PerfilDao;
 import br.com.douglasfernandes.console.dao.TokenDao;
+import br.com.douglasfernandes.console.dao.UsuarioDao;
 import br.com.douglasfernandes.console.logger.Logs;
 import br.com.douglasfernandes.console.model.Canal;
 import br.com.douglasfernandes.console.model.Classificacao;
 import br.com.douglasfernandes.console.model.Pacote;
 import br.com.douglasfernandes.console.model.Perfil;
 import br.com.douglasfernandes.console.model.Token;
+import br.com.douglasfernandes.console.model.Usuario;
 
 @Transactional
 @Controller
@@ -55,6 +57,10 @@ public class ConsoleController {
 	@Qualifier("pacoteJpa")
 	@Autowired
 	private PacoteDao pacoteDao;
+	
+	@Qualifier("usuarioJpa")
+	@Autowired
+	private UsuarioDao usuarioDao;
 	
 	String mensagem = "";
 	
@@ -411,12 +417,6 @@ public class ConsoleController {
 			model.addAttribute("pesquisa",pesquisa);
 			
 			List<Pacote> pacotes = pacoteDao.listar(pesquisa);
-			Logs.info("[ConsoleController]::pacotes::Lista de pacotes:");
-			if(pacotes != null && pacotes.size() > 0){
-				for(Pacote pac : pacotes){
-					Logs.info("-----------> "+pac.toString());
-				}
-			}
 			model.addAttribute("pacotes",pacotes);
 			
 			List<Canal> canais = canalDao.listarPorNome("");
@@ -502,6 +502,32 @@ public class ConsoleController {
 			response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
 			response.getOutputStream().write(logo);
 			response.getOutputStream().close();
+		}
+	}
+	
+//	XXX Gerenciar usuários do portal do sistema.
+	
+	public String usuarios(String pesquisa, Model model){
+		try{
+			model.addAttribute("mensagem",mensagem);
+			mensagem = "";
+			
+			if(pesquisa == null)
+				pesquisa = "";
+			model.addAttribute("pesquisa",pesquisa);
+			
+			List<Usuario> usuarios = usuarioDao.listar("");
+			model.addAttribute("usuarios", usuarios);
+			
+			List<Pacote> pacotes = pacoteDao.listar(pesquisa);
+			model.addAttribute("pacotes",pacotes);
+			
+			return "usuarios/usuarios";
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::usuarios: Erro tentando listar usuarios. Exception: ");
+			e.printStackTrace();
+			return "erro/banco";
 		}
 	}
 	

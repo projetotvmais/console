@@ -56,7 +56,7 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 		try{
 			if(classificacao.getNome() != null && !classificacao.getNome().equals("")){
 				Classificacao teste = pegarClassificacaoPorNome(classificacao.getNome());
-				if(teste == null){
+				if(teste == null || teste.getId() == classificacao.getId()){
 					manager.merge(classificacao);
 					Logs.info("[ClassificacaoJpa]::atualizar: classificacao atualizada. "+classificacao.toString());
 					return Mensagem.getSuccess("Classificação atualizada com êxito.");

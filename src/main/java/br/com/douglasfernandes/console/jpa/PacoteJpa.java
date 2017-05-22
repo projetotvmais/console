@@ -170,6 +170,9 @@ public class PacoteJpa implements PacoteDao{
 			List<Pacote> lista = q.getResultList();
 			if(lista != null && lista.size() > 0){
 				Logs.info("[PacoteJpa]::listar::"+lista.size()+" pacotes recuperados");
+				for(Pacote pac : lista){
+					Logs.info("[PacoteJpa]::listar::------> "+pac.toString());
+				}
 				return lista;
 			}
 			else{

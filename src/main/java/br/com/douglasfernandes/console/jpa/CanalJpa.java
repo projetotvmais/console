@@ -79,7 +79,7 @@ public class CanalJpa implements CanalDao{
 					}
 					if(canal.getUrl() != null && !canal.getUrl().equals("")){
 						teste = pegarPorUrl(canal.getUrl());
-						if(teste == null){
+						if(teste == null || teste.getId() == canal.getId()){
 							manager.merge(canal);
 							Logs.info("[CanalJpa]::atualizar: Canal atualizado com exito.");
 							return Mensagem.getSuccess("Canal atualizado com êxito.");
@@ -191,24 +191,6 @@ public class CanalJpa implements CanalDao{
 	}
 
 	@Override
-	public List<Canal> listarPorClassificacao(String classificacao) {
-		try{
-			Query query = manager.createQuery("select ch from Canal as ch where ch.classificacao.nome like :classificacao");
-			classificacao = "%" + classificacao + "%";
-			query.setParameter("classificacao", classificacao);
-			@SuppressWarnings("unchecked")
-			List<Canal> canais = query.getResultList();
-			Logs.info("[CanalJpa]:: listarPorClassificacao: Canais encontrados: "+canais.size());
-			return canais;
-		}
-		catch(Exception e){
-			Logs.warn("[ClassificacaoJpa]::listarPorClassificacao: Erro ao tentar pegar canais por classificacao. Exception: ");
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
 	public List<Canal> listarPorNome(String nome) {
 		try{
 			Query query = manager.createQuery("select ch from Canal as ch where ch.nome like :nome");
@@ -221,23 +203,6 @@ public class CanalJpa implements CanalDao{
 		}
 		catch(Exception e){
 			Logs.warn("[ClassificacaoJpa]::listarPorNome: Erro ao tentar pegar canais por nome. Exception: ");
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@Override
-	public List<Canal> listarPorStatus(boolean funcionando) {
-		try{
-			Query query = manager.createQuery("select ch from Canal as ch where ch.funcionando = :funcionando");
-			query.setParameter("funcionando", funcionando);
-			@SuppressWarnings("unchecked")
-			List<Canal> canais = query.getResultList();
-			Logs.info("[CanalJpa]:: listarPorStatus: Canais encontrados: "+canais.size());
-			return canais;
-		}
-		catch(Exception e){
-			Logs.warn("[ClassificacaoJpa]::listarPorStatus: Erro ao tentar pegar canais por status. Exception: ");
 			e.printStackTrace();
 			return null;
 		}

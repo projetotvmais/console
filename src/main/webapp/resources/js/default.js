@@ -11,9 +11,9 @@ function hideNavBar(){
         $("#menu").css("left",navbarInitialPosition+"%");
         if(navbarInitialPosition == navbarFinalPosition){
             clearInterval(hideInterval);
+            navShown = false;
         }
     },ratio);
-    navShown = false;
 }
 
 function showNavBar(){
@@ -26,9 +26,15 @@ function showNavBar(){
         $("#menu").css("left",navbarInitialPosition+"%");
         if(navbarInitialPosition == navbarFinalPosition){
             clearInterval(showInterval);
+            navShown = true;
         }
     },ratio);
-    navShown = true;
+}
+
+function navBarOuterClick(){
+    if(navShown){
+        hideNavBar();
+    }
 }
 
 function vercanal(canal){
@@ -191,6 +197,45 @@ function desejaRemoverPacote(id){
    },500);
 }
    
+function selecionarCanaisPorStatus(elem){
+    var modo = elem.value;
+    if(modo == 'funcionando'){
+        $(document).find(".canal-row").show();
+        var canais_quebrados = $(".canal-row div").find(".quebrado");
+        for(var i = 0;i < canais_quebrados.length;i++){
+            $(canais_quebrados[i]).parent().parent().hide();
+        }
+    }
+    else if(modo == 'quebrados'){
+        $(document).find(".canal-row").show();
+        var todos_os_canais = $(".canal-row div").find(".canal");
+        for(var i = 0;i < todos_os_canais.length;i++){
+            if(!$(todos_os_canais[i]).hasClass("quebrado")){
+                $(todos_os_canais[i]).parent().parent().hide();
+            }
+        }
+    }
+    else{
+        $(document).find(".canal-row").show();
+    }
+}
+
+function selecionarCanaisPorClassificacao(elem){
+    var classificacao = elem.value;
+    if(classificacao == '0'){
+        $(document).find(".canal-row").show();
+    }
+    else{
+        $(document).find(".canal-row").hide();
+        var canais_selecionados = $(document).find(".classificacao-canal");
+        for(var i = 0;i < canais_selecionados.length;i++){
+            if($(canais_selecionados[i]).val() == classificacao){
+                $(canais_selecionados[i]).parent().parent().parent().show();
+            }
+        }
+    }
+}
+
 function addEventListeners(){
     // Adiciona função de mostrar ou esconder menu no click do botão
     $("#navbar-toggler").click(function(){
@@ -287,6 +332,8 @@ function addEventListeners(){
             $(".ui-dialog").addClass("top-60");
         },500);
     });
+
+    $("body").click(navBarOuterClick);
 }
 
 window.onpageshow = function(){

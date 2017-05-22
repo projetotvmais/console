@@ -14,8 +14,6 @@ public interface CanalDao {
 	public String atualizar(Canal canal);
 	public String remover(long id);
 	public Canal pegarPorId(long id);
-	public List<Canal> listarPorClassificacao(String classificacao);
 	public List<Canal> listarPorNome(String nome);
-	public List<Canal> listarPorStatus(boolean funcionando);
 	public byte[] pegarLogoDoCanal(long id);
 }

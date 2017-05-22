@@ -8,6 +8,14 @@
 
 		<nav id="menu" class="menu-lateral">
             <ul class="menu">
+            	<li>
+                    <a href="home">
+                    	<div id="home" class="menu-item">
+							<p>Home</p>
+	                    </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
                 <li>
                     <a href="canais">
                     	<div id="canais" class="menu-item">

@@ -47,6 +47,10 @@ public class Usuario {
 	private String estado;
 	@Column(name="cep", nullable=false)
 	private String cep;
+	@Column(name="observacoes")
+	private String observacoes;
+	@Column(name="ativo", nullable=false)
+	private boolean ativo;
 	
 	@OneToOne
 	@JoinColumn(name = "pacote", nullable = false)
@@ -136,11 +140,23 @@ public class Usuario {
 	public void setPacote(Pacote pacote) {
 		this.pacote = pacote;
 	}
+	public String getObservacoes() {
+		return observacoes;
+	}
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+	public boolean getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nome=" + nome + ", identificacao=" + identificacao + ", senha=" + senha
-				+ ", email=" + email + ", telefone=" + telefone + ", foto=" + foto.length + " bytes" + ", endereco="
+				+ ", email=" + email + ", telefone=" + telefone + ", foto=" + foto.length + "bytes, endereco="
 				+ endereco + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado
-				+ ", cep=" + cep + ", pacote=" + pacote.getNome() + "]";
+				+ ", cep=" + cep + ", observacoes=" + observacoes + ", ativo=" + ativo + ", pacote=" + pacote.getNome() + "]";
 	}
 }
