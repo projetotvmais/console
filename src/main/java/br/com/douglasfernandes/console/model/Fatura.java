@@ -72,7 +72,7 @@ public class Fatura {
 	}
 	@Override
 	public String toString() {
-		return "Fatura [id=" + id + ", codigo=" + codigo + ", vencimento=" + vencimento + ", pago=" + pago + ", pacote="
+		return "Fatura [id=" + id + ", codigo=" + codigo + ", vencimento=" + FMT.getStringFromCalendar(vencimento, DateFormat.DMYHM) + ", pago=" + pago + ", pacote="
 				+ pacote.getNome() + "]";
 	}
 }

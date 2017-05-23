@@ -53,8 +53,8 @@ public class Usuario {
 	private boolean ativo;
 	
 	@OneToOne
-	@JoinColumn(name = "pacote", nullable = false)
-	private Pacote pacote;
+	@JoinColumn(name = "fatura", nullable = false)
+	private Fatura fatura;
 	
 	public String getNome() {
 		return nome;
@@ -134,11 +134,11 @@ public class Usuario {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Pacote getPacote() {
-		return pacote;
+	public Fatura getFatura() {
+		return fatura;
 	}
-	public void setPacote(Pacote pacote) {
-		this.pacote = pacote;
+	public void setFatura(Fatura fatura) {
+		this.fatura = fatura;
 	}
 	public String getObservacoes() {
 		return observacoes;
@@ -157,6 +157,6 @@ public class Usuario {
 		return "Usuario [id=" + id + ", nome=" + nome + ", identificacao=" + identificacao + ", senha=" + senha
 				+ ", email=" + email + ", telefone=" + telefone + ", foto=" + foto.length + "bytes, endereco="
 				+ endereco + ", numero=" + numero + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado
-				+ ", cep=" + cep + ", observacoes=" + observacoes + ", ativo=" + ativo + ", pacote=" + pacote.getNome() + "]";
+				+ ", cep=" + cep + ", observacoes=" + observacoes + ", ativo=" + ativo + ", fatura=" + fatura.getCodigo() + "]";
 	}
 }

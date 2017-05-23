@@ -19,7 +19,8 @@ public class FMT
 		DMY("dd/MM/yyyy"),
 		DMYHM("dd/MM/yyyy HH:mm"),
 		DMYTHM("yyyy-MM-dd HH:mm"),
-		EDMY("EEEE, dd 'de' MMMM 'de' yyyy");
+		EDMY("EEEE, dd 'de' MMMM 'de' yyyy"),
+		YMDHMSJ("yyyyMMddHHmmss");
 		
 		private String formato;
 		

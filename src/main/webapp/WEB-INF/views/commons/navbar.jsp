@@ -33,7 +33,7 @@
 				</li>
                 <li class="divider"></li>
                 <li>
-					<a href="clientes">
+					<a href="usuarios">
 						<div id="clientes" class="menu-item">
 							<p>Clientes</p>
 						</div>
