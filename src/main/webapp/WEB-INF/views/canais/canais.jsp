@@ -6,7 +6,7 @@
 
 		<div class="container-fluid">
 			<div class="row">
-				<a id="cadastrar-canal" href="#" class="float-right">Cadastrar canal</a><br>
+				<a id="cadastrar-canal" href="javascript:void(0);" class="float-right">Cadastrar canal</a><br>
 				<a id="btn-home" href="home" class="float-right">Home</a><br>
 				<select id="selecionar_tipo_canal" class="float-right form-control" style="width:150px;" onchange="selecionarCanaisPorStatus(this)">
                     <option value="tudo">Mostrando tudo</option>
@@ -61,7 +61,7 @@
 									<c:if test="${canal.funcionando eq false}">
 										<p>Status: <b>quebrado</b></p>
 									</c:if>
-									<a id="ver-canal${canal.id}" onclick="vercanal(${canal.id})">Ver informações</a><br>
+									<a href="javascript:void(0);" id="ver-canal${canal.id}" onclick="vercanal(${canal.id})">Ver informações</a><br>
 									<a href="testarCanal?id=${canal.id}">Testar canal</a>
 									<div id="form-atualizar-canal${canal.id}" class="escondido" title="Atualizar dados de canal">
 										<form method="post" action="atualizarCanal" class="form-group" enctype="multipart/form-data">

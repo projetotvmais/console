@@ -37,6 +37,29 @@ function navBarOuterClick(){
     }
 }
 
+function mostrarMensagem(mensagem){
+	if(mensagem != null && mensagem != ''){
+		var dialog = "<div id='modal_dialog_v01' title='Mensagem' style='display:none'>"+
+					 "	<p>"+mensagem+"</p>"+
+					 "</div>";
+		$("body").append(dialog);
+			
+		$("#modal_dialog_v01").dialog({
+			modal: true,
+			buttons: {
+				Ok: function() {
+			     $( this ).dialog("close");
+			     $("#modal_dialog_v01").remove();
+			   }
+			},
+			close: function(){
+				$("#modal_dialog_v01").remove();
+			}
+		});
+	}
+	
+}
+
 function vercanal(canal){
     // Abre a form
     $("#form-atualizar-canal"+canal).dialog({
@@ -236,6 +259,15 @@ function selecionarCanaisPorClassificacao(elem){
     }
 }
 
+function somaTopBottom(elemento){
+    var pad_bot = elemento.css("padding-bottom").replace("px","");
+    var pad_top = elemento.css("padding-top").replace("px","");
+    var mg_top = elemento.css("margin-top").replace("px","");
+    var mg_bot = elemento.css("margin-bottom").replace("px","");
+
+    return 1*pad_bot + 1*pad_top + 1*mg_bot + 1*mg_top;
+}
+
 function addEventListeners(){
     // Adiciona função de mostrar ou esconder menu no click do botão
     $("#navbar-toggler").click(function(){
@@ -334,6 +366,58 @@ function addEventListeners(){
     });
 
     $("body").click(navBarOuterClick);
+
+    if($(".lista-clientes").children().length > 0){
+        $("#clientes_nao_cadastrados").hide();
+    }
+}
+
+function exibirCliente(clienteId){
+    $.get("pegarClientePorId?id="+clienteId,function(response){
+    	console.log(response);
+    	var cliente = {
+    			id: response.usuario.id,
+    			nome: response.usuario.nome,
+    			identificacao: response.usuario.identificacao,
+    			email: response.usuario.email,
+    			telefone: response.usuario.telefone,
+    			endereco: response.usuario.endereco + ', ' + response.usuario.numero + ', ' + response.usuario.bairro + ', ' + response.usuario.cidade + ', ' + response.usuario.estado + '.CEP: ' + response.usuario.cep,
+    			observacoes: response.usuario.observacoes,
+    			status: response.usuario.ativo
+    	}
+    	
+    	
+    	$(".dialog-cliente-foto img").attr("src","mostrarFotoDoCliente?id="+cliente.id);
+
+        $(".dialog-cliente-info-nome").text(cliente.nome);
+        $(".dialog-cliente-info-identificacao").text(cliente.identificacao);
+        $(".dialog-cliente-info-email").text(cliente.email);
+        $(".dialog-cliente-info-telefone").text(cliente.telefone);
+        $(".dialog-cliente-info-endereco").text(cliente.endereco);
+        $(".dialog-cliente-info-observacoes").text(cliente.observacoes);
+
+        var ativo = cliente.status;
+        if(ativo){
+            $(".dialog-cliente-info-status").text("Ativo");
+            $(".dialog-cliente-info-status").addClass("cliente-ativo");
+        }
+        else{
+            $(".dialog-cliente-info-status").text("Desativado");
+        }
+        
+        $("#dialog_cliente").show();
+    },"json");
+}
+
+function mudarStatusDeCliente(clienteId){
+	$.get("mudarStatusDeCliente?id="+clienteId,function(response){
+    	var mensagem = response.mensagem;
+    	mostrarMensagem(mensagem);
+    },"json");
+}
+
+function esconderCliente(){
+    $("#dialog_cliente").hide();
 }
 
 window.onpageshow = function(){
@@ -348,4 +432,27 @@ window.onpageshow = function(){
     if(temScrool){
         $(".styled-body").addClass("com-scrool");
     }
+
+    // Alinha a altura das divs de foto e ações de cada cliente de acordo com a div de conteudo.
+    $(".lista-clientes-item").each(function(){
+        var divFoto = $($(this).children()[0]);
+        var divInfo = $($(this).children()[1]);
+        var divAcoes = $($(this).children()[2]);
+
+        var pNome = $(divInfo.children()[0]);
+        var textInsidePNome = pNome.text();
+        if(textInsidePNome.length > 30){
+            pNome.attr("title",textInsidePNome);
+            textInsidePNome = textInsidePNome.substring(0,30) + "...";
+            pNome.text(textInsidePNome);
+        }
+
+        var defaultHeight = divInfo.height();
+
+        var fotoPad = somaTopBottom(divFoto);
+        divFoto.height(defaultHeight - fotoPad);
+        var acoesPad = somaTopBottom(divAcoes);
+        divAcoes.height(defaultHeight - acoesPad);
+    });
+
 }

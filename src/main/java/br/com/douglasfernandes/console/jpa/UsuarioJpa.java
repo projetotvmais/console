@@ -27,7 +27,7 @@ public class UsuarioJpa implements UsuarioDao{
 	@Override
 	public Usuario pegarPorId(long id) {
 		try{
-			Query q = manager.createQuery("select user from Usuario where user.id = :id");
+			Query q = manager.createQuery("select user from Usuario as user where user.id = :id");
 			q.setParameter("id", id);
 			Usuario user = (Usuario)q.getSingleResult();
 			if(user != null){
@@ -49,7 +49,7 @@ public class UsuarioJpa implements UsuarioDao{
 	@Override
 	public List<Usuario> listar(String nome) {
 		try{
-			Query q = manager.createQuery("select user from Usuario where user.nome like :nome or user.identificacao like :nome");
+			Query q = manager.createQuery("select user from Usuario as user where user.nome like :nome or user.identificacao like :nome");
 			String name = "%"+nome+"%";
 			q.setParameter("nome", name);
 			@SuppressWarnings("unchecked")
@@ -75,7 +75,7 @@ public class UsuarioJpa implements UsuarioDao{
 
 	private Usuario pegarPorNome(String nome){
 		try{
-			Query q = manager.createQuery("select user from Usuario where user.nome = :nome");
+			Query q = manager.createQuery("select user from Usuario as user where user.nome = :nome");
 			q.setParameter("nome", nome);
 			Usuario user = (Usuario)q.getSingleResult();
 			if(user != null){
@@ -96,7 +96,7 @@ public class UsuarioJpa implements UsuarioDao{
 	
 	private Usuario pegarPorIdentificacao(String identificacao){
 		try{
-			Query q = manager.createQuery("select user from Usuario where user.identificacao = :identificacao");
+			Query q = manager.createQuery("select user from Usuario as user where user.identificacao = :identificacao");
 			q.setParameter("identificacao", identificacao);
 			Usuario user = (Usuario)q.getSingleResult();
 			if(user != null){
@@ -117,7 +117,7 @@ public class UsuarioJpa implements UsuarioDao{
 	
 	private Usuario pegarPorEmail(String email){
 		try{
-			Query q = manager.createQuery("select user from Usuario where user.email = :email");
+			Query q = manager.createQuery("select user from Usuario as user where user.email = :email");
 			q.setParameter("email", email);
 			Usuario user = (Usuario)q.getSingleResult();
 			if(user != null){
@@ -138,7 +138,7 @@ public class UsuarioJpa implements UsuarioDao{
 	
 	private Usuario pegarPorTelefone(String telefone){
 		try{
-			Query q = manager.createQuery("select user from Usuario where user.telefone = :telefone");
+			Query q = manager.createQuery("select user from Usuario as user where user.telefone = :telefone");
 			q.setParameter("telefone", telefone);
 			Usuario user = (Usuario)q.getSingleResult();
 			if(user != null){

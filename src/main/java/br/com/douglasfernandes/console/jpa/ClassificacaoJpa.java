@@ -99,7 +99,8 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 			Query query = manager.createQuery("select c from Classificacao as c");
 			@SuppressWarnings("unchecked")
 			List<Classificacao> classificacoes = query.getResultList();
-			Logs.info("[ClassificacaoJpa]:: listar: " + classificacoes.size() + " classificacoes encontradas.");
+			if(classificacoes != null && classificacoes.size() > 0)
+				Logs.info("[ClassificacaoJpa]:: listar: " + classificacoes.size() + " classificacoes encontradas.");
 			return classificacoes;
 		}
 		catch(Exception e){
@@ -115,7 +116,8 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 			Query query = manager.createQuery("select c from Classificacao as c where c.id = :id");
 			query.setParameter("id", id);
 			Classificacao classificacao = (Classificacao) query.getSingleResult();
-			Logs.info("[ClassificacaoJpa]:: pegarClassificacao: Classificacao encontrada: "+classificacao.getNome());
+			if(classificacao != null)
+				Logs.info("[ClassificacaoJpa]:: pegarClassificacao: Classificacao encontrada: "+classificacao.getNome());
 			return classificacao;
 		}
 		catch(Exception e){
@@ -130,7 +132,8 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 			Query query = manager.createQuery("select c from Classificacao as c where c.nome = :nome");
 			query.setParameter("nome", nome);
 			Classificacao classificacao = (Classificacao) query.getSingleResult();
-			Logs.info("[ClassificacaoJpa]:: pegarClassificacaoPorNome: Classificacao encontrada: "+classificacao.getNome());
+			if(classificacao != null)
+				Logs.info("[ClassificacaoJpa]:: pegarClassificacaoPorNome: Classificacao encontrada: "+classificacao.getNome());
 			return classificacao;
 		}
 		catch(Exception e){
@@ -142,40 +145,45 @@ public class ClassificacaoJpa implements ClassificacaoDao{
 	
 	@Override
 	public void primeiroAcesso() {
-		List<Classificacao> classificacoes = listar();
-		if(classificacoes == null || classificacoes.size() < 1){
-			Classificacao esportes = new Classificacao();
-			esportes.setNome("Esportes");
-			cadastrar(esportes);
-			
-			Classificacao adulto = new Classificacao();
-			adulto.setNome("Adulto");
-			cadastrar(adulto);
-			
-			Classificacao infantil = new Classificacao();
-			infantil.setNome("Infantil");
-			cadastrar(infantil);
-			
-			Classificacao serie = new Classificacao();
-			serie.setNome("Série");
-			cadastrar(serie);
-			
-			Classificacao filme = new Classificacao();
-			filme.setNome("Filme");
-			cadastrar(filme);
-			
-			Classificacao cultura = new Classificacao();
-			cultura.setNome("Cultura");
-			cadastrar(cultura);
-			
-			Classificacao noticias = new Classificacao();
-			noticias.setNome("Noticias");
-			cadastrar(noticias);
-			
-			Classificacao aberto = new Classificacao();
-			aberto.setNome("Aberto");
-			cadastrar(aberto);
+		try{
+			List<Classificacao> classificacoes = listar();
+			if(classificacoes == null || classificacoes.size() < 1){
+				Classificacao esportes = new Classificacao();
+				esportes.setNome("Esportes");
+				cadastrar(esportes);
+				
+				Classificacao adulto = new Classificacao();
+				adulto.setNome("Adulto");
+				cadastrar(adulto);
+				
+				Classificacao infantil = new Classificacao();
+				infantil.setNome("Infantil");
+				cadastrar(infantil);
+				
+				Classificacao serie = new Classificacao();
+				serie.setNome("Série");
+				cadastrar(serie);
+				
+				Classificacao filme = new Classificacao();
+				filme.setNome("Filme");
+				cadastrar(filme);
+				
+				Classificacao cultura = new Classificacao();
+				cultura.setNome("Cultura");
+				cadastrar(cultura);
+				
+				Classificacao noticias = new Classificacao();
+				noticias.setNome("Noticias");
+				cadastrar(noticias);
+				
+				Classificacao aberto = new Classificacao();
+				aberto.setNome("Aberto");
+				cadastrar(aberto);
+			}
 		}
-		
+		catch(Exception e){
+			Logs.warn("[ClassificacaoJpa]::primeiroAcesso: Erro ao tentar cadastrar classificacoes. Exception: ");
+			e.printStackTrace();
+		}
 	}	
 }

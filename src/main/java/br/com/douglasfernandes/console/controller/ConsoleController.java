@@ -14,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
+
 import br.com.douglasfernandes.console.controller.parsers.CanalParser;
 import br.com.douglasfernandes.console.controller.parsers.PacoteParser;
 import br.com.douglasfernandes.console.controller.parsers.TokenParser;
@@ -80,11 +83,40 @@ public class ConsoleController {
 			
 			model.addAttribute("mensagem",mensagem);
 			mensagem = "";
+			
+			cadastrarUsuarioTeste();
+			
 			return "index";
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			return "erro/banco";
+		}
+	}
+	
+	private void cadastrarUsuarioTeste(){
+		try{
+			Usuario usuario = new Usuario();
+			usuario.setDefaultFoto();
+			usuario.setNome("Douglas Fernandes");
+			usuario.setSenha("$senha=password!dificil");
+			usuario.setEmail("douglasf.filho@gmail.com");
+			usuario.setIdentificacao("084.683.314-06");
+			usuario.setTelefone("(81)9 9672-9491");
+			usuario.setEndereco("Rua Argina Aguiar");
+			usuario.setNumero("206A - Casa");
+			usuario.setBairro("Tejipipó");
+			usuario.setCidade("Recife");
+			usuario.setEstado("PE");
+			usuario.setCep("50.920-600");
+			usuario.setObservacoes("Otimo cliente");
+			usuario.setAtivo(true);
+			
+			usuarioDao.cadastrar(usuario);
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::cadastrarUsuarioTeste::Erro tentando cadastrar novo usuario.Exception:\n");
+			e.printStackTrace();
 		}
 	}
 	
@@ -506,7 +538,7 @@ public class ConsoleController {
 	}
 	
 //	XXX Gerenciar usuários do portal do sistema.
-	
+	@RequestMapping("clientes")
 	public String usuarios(String pesquisa, Model model){
 		try{
 			model.addAttribute("mensagem",mensagem);
@@ -517,17 +549,75 @@ public class ConsoleController {
 			model.addAttribute("pesquisa",pesquisa);
 			
 			List<Usuario> usuarios = usuarioDao.listar("");
-			model.addAttribute("usuarios", usuarios);
+			model.addAttribute("clientes", usuarios);
 			
 			List<Pacote> pacotes = pacoteDao.listar(pesquisa);
 			model.addAttribute("pacotes",pacotes);
 			
-			return "usuarios/usuarios";
+			return "clientes/clientes";
 		}
 		catch(Exception e){
 			Logs.warn("[ConsoleController]::usuarios: Erro tentando listar usuarios. Exception: ");
 			e.printStackTrace();
 			return "erro/banco";
+		}
+	}
+	
+	/**
+	 * Carrega a foto do cliente na response (utilizado no atributo src de uma tag img)
+	 */
+	@RequestMapping("mostrarFotoDoCliente")
+	public void mostrarFotoDoCliente(long id, HttpServletResponse response) throws Exception
+	{
+		byte[] foto = usuarioDao.pegarFotoDeUsuario(id);
+		
+		if(foto != null)
+		{
+			response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+			response.getOutputStream().write(foto);
+			response.getOutputStream().close();
+		}
+	}
+	
+	@RequestMapping("pegarClientePorId")
+	public void pegarClientePorId(long id, HttpServletResponse response){
+		try{
+			Usuario usuario = usuarioDao.pegarPorId(id);
+			
+			if(usuario != null){
+				XStream xstream = new XStream(new JettisonMappedXmlDriver());
+		        xstream.setMode(XStream.NO_REFERENCES);
+		        xstream.processAnnotations(Usuario.class);
+		        String jsonResponse = xstream.toXML(usuario);
+		        
+		        response.setContentType("application/json");
+		        response.getWriter().append(jsonResponse);
+		        response.getWriter().close();
+			}
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::pegarClientePorId: Erro tentando pegar informacoes de usuario. Exception: ");
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("mudarStatusDeCliente")
+	public void mudarStatusDeCliente(long id, HttpServletResponse response){
+		try{
+			Usuario usuario = usuarioDao.pegarPorId(id);
+			usuario.setAtivo(!usuario.getAtivo());
+			String msg = usuarioDao.atualizar(usuario);
+			String resposta = Mensagem.getOriginalMessage(msg);
+			
+			String json = "{\"mensagem\":\"" + resposta + "\"}";
+			
+			response.setContentType("application/json");
+			response.getWriter().append(json);
+			response.getWriter().close();
+		}
+		catch(Exception e){
+			Logs.warn("[ConsoleController]::mudarStatusDeCliente: Erro tentando mudar status de usuario. Exception: ");
+			e.printStackTrace();
 		}
 	}
 	

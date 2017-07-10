@@ -36,6 +36,9 @@ public class Fatura {
 	@OneToOne
 	@JoinColumn(name = "pacote", nullable = false)
 	private Pacote pacote;
+	@OneToOne
+	@JoinColumn(name = "usuario", nullable = false)
+	private Usuario usuario;
 	
 	public long getId() {
 		return id;
@@ -70,9 +73,16 @@ public class Fatura {
 	public void setPacote(Pacote pacote) {
 		this.pacote = pacote;
 	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 	@Override
 	public String toString() {
-		return "Fatura [id=" + id + ", codigo=" + codigo + ", vencimento=" + FMT.getStringFromCalendar(vencimento, DateFormat.DMYHM) + ", pago=" + pago + ", pacote="
-				+ pacote.getNome() + "]";
+		return "Fatura [id=" + id + ", codigo=" + codigo + ", vencimento=" + vencimento + ", pago=" + pago + ", pacote="
+				+ pacote + ", usuario=" + usuario + "]";
 	}
 }

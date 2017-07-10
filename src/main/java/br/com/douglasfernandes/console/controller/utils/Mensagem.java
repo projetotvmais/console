@@ -86,4 +86,18 @@ public class Mensagem
 	public static boolean isWarnning(String message){
 		return message.contains("alert alert-warning");
 	}
+	
+	/**
+	 * Retorna a mensagem original, isto é, a mensagem sem formatação.
+	 * @return
+	 */
+	public static String getOriginalMessage(String msg){
+		String message = msg.replace(DIV_DANGER, "");
+		message = message.replace(DIV_INFO, "");
+		message = message.replace(DIV_SUCCESS, "");
+		message = message.replace(DIV_WARNING, "");
+		message = message.replace(END_DIV, "");
+		
+		return message;
+	}
 }
