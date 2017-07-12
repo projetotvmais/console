@@ -1,36 +1,38 @@
 package br.com.douglasfernandes.console;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
-import br.com.douglasfernandes.console.model.Usuario;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 public class Testes {
 
 	public static void main(String[] args) {
 		try{
-			Usuario usuario = new Usuario();
-			usuario.setId(1);
-			usuario.setNome("Douglas Fernandes");
-			usuario.setEmail("douglasf.filho@gmail.com");
-			usuario.setIdentificacao("084.683.314-06");
-			usuario.setTelefone("(81)9 9672-9491");
-			usuario.setEndereco("Rua Argina Aguiar");
-			usuario.setNumero("206A - Casa");
-			usuario.setBairro("Tejipipó");
-			usuario.setCidade("Recife");
-			usuario.setEstado("PE");
-			usuario.setCep("50.920-600");
-			usuario.setObservacoes("Otimo cliente");
-			usuario.setAtivo(true);
+			String USER_AGENT = "Mozilla/5.0";
+			String url = "http://rafildshdtv.com/live/5801255b39c38e1109ddfabd.m3u8";
+
+			HttpClient client = HttpClientBuilder.create().build();
+			HttpPost post = new HttpPost(url);
+
+			post.setHeader("Host", "rafildshdtv.com");
+			post.setHeader("User-Agent", USER_AGENT);
+			post.setHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+			post.setHeader("Accept-Language", "en-US,en;q=0.5");
+			post.setHeader("Connection", "keep-alive");
+			post.setHeader("Referer", url);
+			post.setHeader("Content-Type", "application/x-www-form-urlencoded");
 			
-			if(usuario != null){
-				XStream xstream = new XStream(new JettisonMappedXmlDriver());
-		        xstream.setMode(XStream.NO_REFERENCES);
-		        xstream.processAnnotations(Usuario.class);
-		        String jsonResponse = xstream.toXML(usuario);
-		        
-		        System.out.println(jsonResponse);
+			HttpResponse response = client.execute(post);
+
+			BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+			String line = "";
+			while ((line = rd.readLine()) != null) {
+				System.out.println(line);
 			}
 		}
 		catch(Exception e){

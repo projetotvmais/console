@@ -20,9 +20,9 @@
 	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 	    <property name="driverClassName" value="org.h2.Driver"/>
-	    <property name="url" value="jdbc:h2:./iptvdatabase;MODE=MySQL;MV_STORE=FALSE;AUTO_SERVER=TRUE"/>
-	    <property name="username" value="root"/>
-	    <property name="password" value="$9916do@d"/>
+	    <property name="url" value="jdbc:h2:~/iptvdatabase;MODE=MySQL;MV_STORE=FALSE;AUTO_SERVER=TRUE"/>
+	    <property name="username" value="admin"/>
+	    <property name="password" value="$53RVER!P45SW0Rd#"/>
 	  </bean>
   
   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
